@@ -1,0 +1,8 @@
+{
+"teleportDelay":5,
+"homeCooldown":300,
+"tpaCooldown":600,
+"suicideCooldown":60,
+"homeCount":1,
+"backCooldown":300
+}
