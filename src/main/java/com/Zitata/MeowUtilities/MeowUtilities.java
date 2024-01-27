@@ -4,19 +4,15 @@ import com.Zitata.MeowUtilities.Commands.*;
 import com.Zitata.MeowUtilities.Data.*;
 import com.Zitata.MeowUtilities.Events.*;
 import com.Zitata.MeowUtilities.Teleport.*;
+import com.Zitata.MeowUtilities.Teleport.Patterns.Cooldown;
 import com.Zitata.MeowUtilities.Teleport.Patterns.TeleportPoint;
-import com.Zitata.MeowUtilities.Teleport.TpaRequest;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import net.minecraft.util.EnumChatFormatting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mod(
         modid = MeowUtilities.modId,
@@ -36,6 +32,7 @@ public class MeowUtilities {
     public static Map<String, List<TeleportPoint>> teleportPoints;
     public static List<TpaRequest> tpaRequests;
     public static List<TeleportDelay> teleportDelays;
+    public static List<Cooldown> cooldowns;
 
     public static Teleport teleport;
 
@@ -49,14 +46,16 @@ public class MeowUtilities {
         //Declaring static classes
         data = new Data();
         config = new Config();
+        teleport = new Teleport();
 
         teleportPoints = new HashMap<String, List<TeleportPoint>>();
         tpaRequests = new ArrayList<TpaRequest>();
         teleportDelays = new ArrayList<TeleportDelay>();
+        cooldowns = new ArrayList<Cooldown>();
 
-        teleport = new Teleport();
-
-
+        //Read files
+        data.readTeleportPoints();
+        data.readCooldown();
 
         //Registration commands
         event.registerServerCommand(new SetTp());
@@ -74,11 +73,47 @@ public class MeowUtilities {
         FMLCommonHandler.instance().bus().register(new onServerTick());
         FMLCommonHandler.instance().bus().register(new onPlayerConnect());
         FMLCommonHandler.instance().bus().register(new onPlayerDisconnect());
-    }
 
-    public void serverStopping(FMLServerStoppingEvent event){
+        /*
 
-        //Save data
-        config.saveConfig();
+        //1
+        class Meow{
+            private String name;
+            private Integer value;
+            public Meow(String name, Integer value){
+                this.name = name;
+                this.value = value;
+            }
+            public String getName() {
+                return this.name;
+            }
+            public Integer getValue() {
+                return this.value;
+            }
+        }
+
+        List<Meow> meowList = new ArrayList<Meow>();
+
+        Integer resultMeow;
+        for (Meow meow : meowList){
+            if (meow.equals("2")){
+                resultMeow = meow.value;
+                break;
+            }
+        }
+
+        //2
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        map.put("1", 1);
+        map.put("2", 2);
+
+        meowList.add(new Meow("1", 1));
+        meowList.add(new Meow("2", 2));
+
+        Integer resultMap;
+        resultMap = map.get("2");
+
+        */
     }
 }

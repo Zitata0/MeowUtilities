@@ -25,16 +25,16 @@ public class ReloadCfg extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
 
-        if (!(sender instanceof EntityPlayerMP)){
-            return;
-        }
-
-        EntityPlayerMP entityPlayerMP = (EntityPlayerMP) sender;
-
         MeowUtilities.config.readConfig();
 
-        ChatComponentText message = new ChatComponentText("Configuration is reloaded");
-        message.getChatStyle().setColor(MeowUtilities.SUCCESSFUL);
-        entityPlayerMP.addChatMessage(message);
+        if (sender instanceof EntityPlayerMP){
+            EntityPlayerMP player = (EntityPlayerMP) sender;
+
+            ChatComponentText message = new ChatComponentText("Configuration is reloaded");
+            message.getChatStyle().setColor(MeowUtilities.SUCCESSFUL);
+            player.addChatMessage(message);
+        }else{
+            System.out.println("Configuration is reloaded");
+        }
     }
 }

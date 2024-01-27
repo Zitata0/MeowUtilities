@@ -1,10 +1,10 @@
 [
 {
-  "modid": "MeowU",
+  "modid": "MeowU--${name}",
   "name": "MeowUtilities",
   "description": "Meow servers commands",
-  "version": "",
-  "mcversion": "1.7.10",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["Zitata"],

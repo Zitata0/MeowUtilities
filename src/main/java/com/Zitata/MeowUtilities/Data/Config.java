@@ -1,7 +1,6 @@
 package com.Zitata.MeowUtilities.Data;
 
 import com.Zitata.MeowUtilities.MeowUtilities;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -13,6 +12,8 @@ public class Config {
     private Map<String, Integer> config;
 
     public Config(){
+
+        //Default values
         this.config = new HashMap<String, Integer>();
         this.config.put("teleportDelay", 5);
         this.config.put("tpCooldown", 300);
@@ -20,6 +21,7 @@ public class Config {
         this.config.put("tpCount", 1);
         this.config.put("suicideCooldown", 60);
         this.config.put("backCooldown", 300);
+        this.config.put("dataSave", 300);
 
         readConfig();
     }
@@ -44,51 +46,73 @@ public class Config {
         MeowUtilities.data.writeJson(config, MeowUtilities.data.configFileName);
     }
 
+    /** @return - value in ms */
     public int getTeleportDelay() {
-        return config.get("teleportDelay");
+        return config.get("teleportDelay") * 1000;
     }
 
+    /** @return - value in ms */
     public int getTpCooldown() {
-        return config.get("tpCooldown");
+        return config.get("tpCooldown") * 1000;
     }
 
+    /** @return - value in ms */
     public int getTpaCooldown() {
-        return config.get("tpaCooldown");
+        return config.get("tpaCooldown") * 1000;
     }
 
+    /** @return - value in ms */
     public int getSuicideCooldown() {
-        return config.get("suicideCooldown");
+        return config.get("suicideCooldown") * 1000;
     }
 
+    /** @return - teleportPoints max count */
     public int getTpCount() {
         return config.get("tpCount");
     }
 
+    /** @return - value in ms */
     public int getBackCooldown() {
-        return config.get("backCooldown");
+        return config.get("backCooldown") * 1000;
     }
 
+    /** @return - value in ms */
+    public int getDataSave(){
+        return config.get("dataSave") * 1000;
+    }
+
+    /** @param teleportDelay - value in seconds */
     public void setTeleportDelay(int teleportDelay) {
-        this.config.put("teleportDelay", teleportDelay);
+        config.put("teleportDelay", teleportDelay);
     }
 
+    /** @param tpCooldown - value in seconds */
     public void setTpCooldown(int tpCooldown) {
-        this.config.put("tpCooldown", tpCooldown);
+        config.put("tpCooldown", tpCooldown);
     }
 
+    /** @param tpaCooldown - value in seconds */
     public void setTpaCooldown(int tpaCooldown) {
-        this.config.put("tpaCooldown", tpaCooldown);
+        config.put("tpaCooldown", tpaCooldown);
     }
 
+    /** @param suicideCooldown - value in seconds */
     public void setSuicideCooldown(int suicideCooldown) {
-        this.config.put("suicideCooldown", suicideCooldown);
+        config.put("suicideCooldown", suicideCooldown);
     }
 
+    /** @param tpCount - value in seconds */
     public void setTpCount(int tpCount) {
-        this.config.put("tpCount", tpCount);
+        config.put("tpCount", tpCount);
     }
 
+    /** @param backCooldown - value in seconds */
     public void setBackCooldown(int backCooldown) {
-        this.config.put("backCooldown", backCooldown);
+        config.put("backCooldown", backCooldown);
+    }
+
+    /** @param dataSave - value in seconds */
+    public void setDataSave(int dataSave){
+        config.put("dataSave", dataSave);
     }
 }

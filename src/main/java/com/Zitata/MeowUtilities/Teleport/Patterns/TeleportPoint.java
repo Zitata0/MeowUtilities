@@ -2,8 +2,8 @@ package com.Zitata.MeowUtilities.Teleport.Patterns;
 
 public class TeleportPoint extends Point {
 
-    private String name;
-    private boolean publicPoint;
+    public String name;
+    public boolean publicPoint;
 
     public TeleportPoint(String name, int dimension, double x, double y, double z, boolean publicPoint) {
         super(dimension, x, y, z);

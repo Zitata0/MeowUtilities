@@ -1,6 +1,7 @@
 package com.Zitata.MeowUtilities.Commands;
 
 import com.Zitata.MeowUtilities.MeowUtilities;
+import com.Zitata.MeowUtilities.Teleport.Patterns.Cooldown;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -33,15 +34,28 @@ public class Suicide extends CommandBase {
         EntityPlayerMP entityPlayerMP = (EntityPlayerMP) sender;
         ChatComponentText message;
 
-        if (false){
+        Cooldown cooldown = null;
+        for (Cooldown cooldownSelected : MeowUtilities.cooldowns){
+            if (cooldownSelected.getName().equals(entityPlayerMP.getDisplayName())){
+                cooldown = cooldownSelected;
+                break;
+            }
+        }
 
-            message = new ChatComponentText("Suicide will recharge in " + "" + " seconds");
+        if (cooldown == null){
+            System.out.println("Error: Cooldown");
+            return;
+        }
+
+        if (cooldown.isSuicide()){
+            entityPlayerMP.attackEntityFrom(DamageSource.generic.setDamageAllowedInCreativeMode().setDamageIsAbsolute(), Float.MAX_VALUE);
+            cooldown.setSuicide();
+
+            message = new ChatComponentText("Think about kittens");
             message.getChatStyle().setColor(MeowUtilities.ERROR);
             entityPlayerMP.addChatMessage(message);
         }else{
-            entityPlayerMP.attackEntityFrom(DamageSource.generic.setDamageAllowedInCreativeMode().setDamageIsAbsolute(), Float.MAX_VALUE);
-
-            message = new ChatComponentText("Think about kittens");
+            message = new ChatComponentText("Suicide will recharge in " + ((cooldown.getSuicide() - System.currentTimeMillis()) / 1000) + " seconds");
             message.getChatStyle().setColor(MeowUtilities.ERROR);
             entityPlayerMP.addChatMessage(message);
         }

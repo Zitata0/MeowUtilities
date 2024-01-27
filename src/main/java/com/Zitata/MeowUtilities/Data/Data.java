@@ -1,18 +1,22 @@
 package com.Zitata.MeowUtilities.Data;
 
 import com.Zitata.MeowUtilities.MeowUtilities;
+import com.Zitata.MeowUtilities.Teleport.Patterns.TeleportPoint;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.*;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Data {
 
-    private Gson gson;
+    private final Gson gson;
     private final String dirPath;
     public final String configFileName;
     public final String cooldownFileName;
+    public final String teleportPointsFileName;
 
     public Data(){
         this.dirPath = "." + File.separator + MeowUtilities.modName;
@@ -27,11 +31,37 @@ public class Data {
             }
         }
 
-        this.configFileName = "Config.json";
-        this.cooldownFileName = "Cooldown.json";
+        this.configFileName = "config.json";
+        this.cooldownFileName = "cooldown.json";
+        this.teleportPointsFileName = "teleportPoints.json";
 
         createFile(configFileName);
         createFile(cooldownFileName);
+        createFile(teleportPointsFileName);
+    }
+
+    public void saveCooldown(){
+        writeJson(MeowUtilities.cooldowns, cooldownFileName);
+    }
+
+    public void readCooldown(){
+        String str = read(cooldownFileName);
+        MeowUtilities.cooldowns = gson.fromJson(str, MeowUtilities.cooldowns.getClass());
+    }
+
+    public void saveTeleportPoints(){
+        writeJson(MeowUtilities.teleportPoints, teleportPointsFileName);
+    }
+
+    public void readTeleportPoints(){
+        JsonObject jsonObject = new JsonParser().parse(read(teleportPointsFileName)).getAsJsonObject();
+        for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()){
+            List<TeleportPoint> teleportPoints = new ArrayList<TeleportPoint>();
+            for (JsonElement je : entry.getValue().getAsJsonArray()){
+                teleportPoints.add(gson.fromJson(je, TeleportPoint.class));
+            }
+            MeowUtilities.teleportPoints.put(entry.getKey(), teleportPoints);
+        }
     }
 
     public void createFile(String fileName){

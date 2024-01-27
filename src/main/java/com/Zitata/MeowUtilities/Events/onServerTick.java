@@ -8,20 +8,30 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class onServerTick {
 
-    private int delaySec;
+    private long secTimeStamp;
+    private long saveDataTimeStamp;
 
     public onServerTick(){
-        delaySec = 0;
+        secTimeStamp = System.currentTimeMillis();
+        setSaveDataTimeStamp();
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void onServerTick(TickEvent.ServerTickEvent event){
 
-        this.delaySec++;
-        if (this.delaySec < 40){
+        //Sec time
+        if (System.currentTimeMillis() - 1000 < secTimeStamp){
             return;
         }
-        this.delaySec = 0;
+
+        secTimeStamp = System.currentTimeMillis();
+
+        if (System.currentTimeMillis() >= saveDataTimeStamp){
+            MeowUtilities.config.saveConfig();
+            MeowUtilities.data.saveCooldown();
+            MeowUtilities.data.saveTeleportPoints();
+            setSaveDataTimeStamp();
+        }
 
         int removeIndex = -1;
         for (TeleportDelay teleportDelay : MeowUtilities.teleportDelays){
@@ -33,5 +43,9 @@ public class onServerTick {
         if (removeIndex > -1){
             MeowUtilities.teleportDelays.remove(removeIndex);
         }
+    }
+
+    private void setSaveDataTimeStamp(){
+        saveDataTimeStamp = System.currentTimeMillis() + MeowUtilities.config.getDataSave(); //Save data every 5 min
     }
 }

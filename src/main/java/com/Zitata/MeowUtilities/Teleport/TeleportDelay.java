@@ -39,7 +39,7 @@ public class TeleportDelay extends Point {
     private void teleportDelay(){
         setTimeStamp();
 
-        ChatComponentText message = new ChatComponentText("You will be teleported in " + MeowUtilities.config.getTeleportDelay() + " seconds");
+        ChatComponentText message = new ChatComponentText("You will be teleported in " + MeowUtilities.config.getTeleportDelay() / 1000 + " seconds");
         message.getChatStyle().setColor(MeowUtilities.PASSIVE);
         playerSource.addChatMessage(message);
 
@@ -79,7 +79,7 @@ public class TeleportDelay extends Point {
     }
 
     public void setTimeStamp(){
-        this.timeStamp = System.currentTimeMillis() + (MeowUtilities.config.getTeleportDelay() * 1000);
+        this.timeStamp = System.currentTimeMillis() + (MeowUtilities.config.getTeleportDelay());
     }
 
     public void setPlayerTarget(EntityPlayerMP playerTarget){

@@ -56,13 +56,6 @@ public class SetTp extends CommandBase {
 
         List<TeleportPoint> teleportPoints = MeowUtilities.teleportPoints.get(entityPlayerMP.getDisplayName());
 
-        if (teleportPoints.size() >= MeowUtilities.config.getTpCount()){
-            message = new ChatComponentText("You have a lot of teleport points");
-            message.getChatStyle().setColor(MeowUtilities.ERROR);
-            entityPlayerMP.addChatMessage(message);
-            return;
-        }
-
         String teleportPointName;
         if (args.length < 1){
             teleportPointName = "home";
@@ -101,6 +94,11 @@ public class SetTp extends CommandBase {
                 message.getChatStyle().setColor(MeowUtilities.ERROR);
                 entityPlayerMP.addChatMessage(message);
             }
+        }else if (teleportPoints.size() >= MeowUtilities.config.getTpCount()){
+            message = new ChatComponentText("You have a lot of teleport points");
+            message.getChatStyle().setColor(MeowUtilities.ERROR);
+            entityPlayerMP.addChatMessage(message);
+            return;
         }else{
             teleportPoints.add(new TeleportPoint(teleportPointName, entityPlayerMP.dimension, entityPlayerMP.posX, entityPlayerMP.posY, entityPlayerMP.posZ, false));
 

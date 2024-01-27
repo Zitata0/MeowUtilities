@@ -1,6 +1,7 @@
 package com.Zitata.MeowUtilities.Commands;
 
 import com.Zitata.MeowUtilities.MeowUtilities;
+import com.Zitata.MeowUtilities.Teleport.Patterns.Cooldown;
 import com.Zitata.MeowUtilities.Teleport.TpaRequest;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -45,9 +46,30 @@ public class Tpa extends CommandBase {
         }
 
         EntityPlayerMP playerSource = (EntityPlayerMP) sender;
+        ChatComponentText message;
+
+        Cooldown cooldown = null;
+        for (Cooldown cooldownSelected : MeowUtilities.cooldowns){
+            if (cooldownSelected.getName().equals(playerSource.getDisplayName())){
+                cooldown = cooldownSelected;
+                break;
+            }
+        }
+
+        if (cooldown == null){
+            System.out.println("Error: Cooldown");
+            return;
+        }
+
+        if (!cooldown.isTp()){
+            message = new ChatComponentText("Tpa will recharge in " + ((cooldown.getTpa() - System.currentTimeMillis()) / 1000) + " seconds");
+            message.getChatStyle().setColor(MeowUtilities.ERROR);
+            playerSource.addChatMessage(message);
+            return;
+        }
 
         if (args.length < 1){
-            ChatComponentText message = new ChatComponentText("Player not found");
+            message = new ChatComponentText("Player not found");
             message.getChatStyle().setColor(MeowUtilities.ERROR);
             playerSource.addChatMessage(message);
             return;
@@ -77,13 +99,13 @@ public class Tpa extends CommandBase {
             }
         }
         if (!hasPlayer){
-            ChatComponentText message = new ChatComponentText("Player not found");
+            message = new ChatComponentText("Player not found");
             message.getChatStyle().setColor(MeowUtilities.ERROR);
             playerSource.addChatMessage(message);
             return;
         }
 
-        ChatComponentText message = new ChatComponentText("Request has been sent to " + playerTarget.getDisplayName());
+        message = new ChatComponentText("Request has been sent to " + playerTarget.getDisplayName());
         message.getChatStyle().setColor(MeowUtilities.PASSIVE);
         playerSource.addChatMessage(message);
 

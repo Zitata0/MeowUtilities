@@ -2,8 +2,8 @@ package com.Zitata.MeowUtilities.Teleport.Patterns;
 
 public abstract class Point {
 
-    private int dimension;
-    private double x, y, z;
+    public int dimension;
+    public double x, y, z;
 
     public Point(int dimension, double x, double y, double z){
         this.dimension = dimension;
