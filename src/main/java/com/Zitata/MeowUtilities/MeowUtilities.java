@@ -51,7 +51,9 @@ public class MeowUtilities {
         teleportPoints = new HashMap<String, List<TeleportPoint>>();
         tpaRequests = new ArrayList<TpaRequest>();
         teleportDelays = new ArrayList<TeleportDelay>();
+        System.out.println("Cooldowns created----------------------------------------------Meow123");
         cooldowns = new ArrayList<Cooldown>();
+        MeowUtilities.cooldowns.add(new Cooldown("MeowPurr"));
 
         //Read files
         data.readTeleportPoints();

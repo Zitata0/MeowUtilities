@@ -11,13 +11,15 @@ import java.util.ArrayList;
 
 public class onPlayerConnect {
 
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onPlayerConnect(PlayerEvent.PlayerLoggedInEvent event){
         if (!MeowUtilities.teleportPoints.containsKey(event.player.getDisplayName())){
             MeowUtilities.teleportPoints.put(event.player.getDisplayName(), new ArrayList<TeleportPoint>());
         }
 
         Cooldown cooldown = null;
+        System.out.println(MeowUtilities.cooldowns);
+        System.out.println("-----------------------------------------------Meow123");
         for (Cooldown cooldownSelected : MeowUtilities.cooldowns){
             if (cooldownSelected.getName().equals(event.player.getDisplayName())){
                 cooldown = cooldownSelected;

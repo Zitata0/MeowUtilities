@@ -54,7 +54,7 @@ public class Data {
     }
 
     public void readTeleportPoints(){
-        JsonObject jsonObject = new JsonParser().parse(read(teleportPointsFileName)).getAsJsonObject();
+        JsonObject jsonObject = readJson(teleportPointsFileName);
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()){
             List<TeleportPoint> teleportPoints = new ArrayList<TeleportPoint>();
             for (JsonElement je : entry.getValue().getAsJsonArray()){
@@ -112,6 +112,14 @@ public class Data {
         }
 
         return str;
+    }
+
+    public JsonObject readJson(String fileName){
+        String str = read(fileName);
+        if (str.equals("")){
+            return new JsonObject();
+        }
+        return new JsonParser().parse(str).getAsJsonObject();
     }
 
     public void writeJson(Object obj, String fileName){
