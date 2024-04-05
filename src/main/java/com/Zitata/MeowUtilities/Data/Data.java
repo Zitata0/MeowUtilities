@@ -1,12 +1,9 @@
 package com.Zitata.MeowUtilities.Data;
 
 import com.Zitata.MeowUtilities.MeowUtilities;
+import com.Zitata.MeowUtilities.Teleport.Patterns.Cooldown;
 import com.Zitata.MeowUtilities.Teleport.Patterns.TeleportPoint;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
+import com.google.gson.*;
 import java.io.*;
 import java.util.*;
 
@@ -44,9 +41,8 @@ public class Data {
         writeJson(MeowUtilities.cooldowns, cooldownFileName);
     }
 
-    public void readCooldown(){
-        String str = read(cooldownFileName);
-        MeowUtilities.cooldowns = gson.fromJson(str, MeowUtilities.cooldowns.getClass());
+    public List<Cooldown> readCooldown(){
+        return gson.fromJson(readJson(cooldownFileName).getAsJsonArray(), List.class);
     }
 
     public void saveTeleportPoints(){
@@ -54,7 +50,13 @@ public class Data {
     }
 
     public void readTeleportPoints(){
-        JsonObject jsonObject = readJson(teleportPointsFileName);
+        JsonElement jsonElement = readJson(teleportPointsFileName);
+        JsonObject jsonObject;
+        if (jsonElement == null){
+            jsonObject = new JsonObject();
+        }else {
+            jsonObject = jsonElement.getAsJsonObject();
+        }
         for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()){
             List<TeleportPoint> teleportPoints = new ArrayList<TeleportPoint>();
             for (JsonElement je : entry.getValue().getAsJsonArray()){
@@ -66,27 +68,32 @@ public class Data {
 
     public void createFile(String fileName){
         File file = new File(this.dirPath, fileName);
-        if (!file.exists()){
-            try {
-                if (file.createNewFile()){
-                    System.out.println("File \"" + file.getName() + "\" has been created");
-                }else{
-                    System.out.println("Error: File " + file.getName() + " was not created");
-                }
-            } catch (IOException e) {
-                System.out.println("Error: File \"" + file.getName() + "\" was not created");
-                e.printStackTrace();
+        if (file.exists()) {
+            return;
+        }
+        try{
+            if (file.createNewFile()){
+                System.out.println("File \"" + file.getName() + "\" has been created");
+            }else{
+                System.out.println("Error: File " + file.getName() + " was not created");
             }
+        } catch (IOException e) {
+            System.out.println("Error: File \"" + file.getName() + "\" was not created");
+            e.printStackTrace();
         }
     }
 
     public void write(String str, String fileName){
+        PrintWriter out = null;
         try{
-            PrintWriter out = new PrintWriter(new FileWriter(this.dirPath + File.separator + fileName));
+            out = new PrintWriter(new FileWriter(this.dirPath + File.separator + fileName));
             out.write(str);
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (out != null){
+                out.close();
+            }
         }
     }
 
@@ -100,41 +107,68 @@ public class Data {
 
         String str = "";
 
+        Scanner scanner = null;
         try {
-            Scanner scanner = new Scanner(file);
+            scanner = new Scanner(file);
             scanner.useDelimiter("/");
             str = scanner.next();
-            scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File \"" + fileName + "\" not found");
         } catch (NoSuchElementException e){
             System.out.println("File \"" + fileName + "\" do not have a line");
+        } finally {
+            if (scanner != null){
+                scanner.close();
+            }
         }
 
         return str;
     }
 
-    public JsonObject readJson(String fileName){
+    /** @return - null, if file is empty.
+     * JsonArray, if it exist in the file */
+    public JsonArray readJson1(String fileName){
         String str = read(fileName);
         if (str.equals("")){
+            return new JsonArray();
+        }
+        return new JsonParser().parse(str).getAsJsonArray();
+    }
+
+    /** @return - null, if file is empty.
+     * JsonObject, if it exist in the file */
+    public JsonObject readJson(String fileName){
+        JsonElement jsonElement1 = new JsonObject();
+        JsonElement jsonElement2 = new JsonArray();
+        System.out.println("---------------------------------Meow123");
+        System.out.println(jsonElement1);
+        System.out.println(jsonElement2);
+        System.out.println(jsonElement1.getAsJsonArray());
+        System.out.println(jsonElement2.getAsJsonObject());
+
+        String str = read(fileName);
+        if (str.equals("")) {
             return new JsonObject();
         }
         return new JsonParser().parse(str).getAsJsonObject();
     }
 
+    /** Writes Object to file as JsonElement */
     public void writeJson(Object obj, String fileName){
-
         if (!new File(this.dirPath, fileName).exists()){
             return;
         }
 
-        try{
-            PrintWriter out = new PrintWriter(new FileWriter(this.dirPath + File.separator + fileName));
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(new FileWriter(this.dirPath + File.separator + fileName));
             out.write(gson.toJson(obj));
-            out.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (out != null){
+                out.close();
+            }
         }
     }
-
 }

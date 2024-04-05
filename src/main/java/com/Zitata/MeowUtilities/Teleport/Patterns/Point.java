@@ -43,5 +43,4 @@ public abstract class Point {
     public void setZ(double z) {
         this.z = z;
     }
-
 }

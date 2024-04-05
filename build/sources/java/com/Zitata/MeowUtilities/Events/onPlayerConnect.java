@@ -18,8 +18,6 @@ public class onPlayerConnect {
         }
 
         Cooldown cooldown = null;
-        System.out.println(MeowUtilities.cooldowns);
-        System.out.println("-----------------------------------------------Meow123");
         for (Cooldown cooldownSelected : MeowUtilities.cooldowns){
             if (cooldownSelected.getName().equals(event.player.getDisplayName())){
                 cooldown = cooldownSelected;
