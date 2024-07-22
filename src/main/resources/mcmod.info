@@ -1,0 +1,16 @@
+[
+{
+  "modid": "MeowU",
+  "name": "${name}",
+  "description": "Meow servers commands",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Zitata"],
+  "credits": "Meow",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
