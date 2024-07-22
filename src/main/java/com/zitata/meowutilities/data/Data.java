@@ -1,6 +1,9 @@
 package com.zitata.meowutilities.data;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.entity.PlayerGhost;
 
@@ -46,9 +49,13 @@ public class Data {
         return GSON.fromJson(data, PlayerGhost.class);
     }
 
-    public static void savePlayerGhosts(Map<String, PlayerGhost> playerGhosts) {
-        for (String playerName : playerGhosts.keySet()) {
-            writeJson(new File(PLAYERS_DIR, playerName + ".json"), GSON.toJsonTree(playerGhosts.get(playerName)));
+    public static void savePlayerGhost(Map.Entry<String, PlayerGhost> playerGhost) {
+        writeJson(new File(PLAYERS_DIR, playerGhost.getKey() + ".json"), GSON.toJsonTree(playerGhost.getValue()));
+    }
+
+    public static void saveAllPlayerGhost(Map<String, PlayerGhost> playerGhosts) {
+        for (Map.Entry<String, PlayerGhost> playerGhost : playerGhosts.entrySet()) {
+            savePlayerGhost(playerGhost);
         }
     }
 

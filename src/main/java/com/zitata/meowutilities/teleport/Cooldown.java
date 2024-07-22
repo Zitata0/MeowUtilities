@@ -7,6 +7,28 @@ public class Cooldown {
     private long tpa = 0L;
     private long suicide = 0L;
     private long back = 0L;
+    private long tpPublic = 0L;
+
+    /**
+     * @return status of end cooldown
+     */
+    public boolean isTpPublic() {
+        return System.currentTimeMillis() >= getTpPublic();
+    }
+
+    /**
+     * @return timestamp of end cooldown in ms
+     */
+    public long getTpPublic() {
+        return tpPublic;
+    }
+
+    /**
+     * set timestamp of end cooldown
+     */
+    public void setTpPublic() {
+        tpPublic = System.currentTimeMillis() + MeowUtilities.config.getTpPublicCooldown();
+    }
 
     /**
      * @return status of end cooldown

@@ -20,7 +20,7 @@ public class DelTp extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/dtp [null/name]";
+        return "/dtp [name]";
     }
 
     @Override

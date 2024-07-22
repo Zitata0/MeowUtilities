@@ -52,13 +52,12 @@ public class SetPublic extends CommandBase {
             return;
         }
 
-        if (playerGhost.publicTeleportPointCount() >= MeowUtilities.config.getTpPublicCount()) {
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "You have a lot of public teleport points");
-            return;
-        }
-
         TeleportPoint teleportPoint;
         if (playerGhost.teleportPoints.containsKey(args[0])) {
+            if (!playerGhost.teleportPoints.get(args[0]).isPublic() && playerGhost.publicTeleportPointCount() >= MeowUtilities.config.getTpPublicCount()) {
+                MessageSender.sendMessage(player, MeowUtilities.ERROR, "You have a lot of public teleport points");
+                return;
+            }
             teleportPoint = playerGhost.teleportPoints.get(args[0]);
         } else {
             MessageSender.sendMessage(player, MeowUtilities.ERROR, "Teleport point not found");

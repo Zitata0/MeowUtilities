@@ -37,6 +37,13 @@ public class Teleporter {
             case OTHER: {
                 playerSource.playerNetServerHandler.setPlayerLocation(teleportDelay.getX(), teleportDelay.getY(), teleportDelay.getZ(), teleportDelay.getRotationYawHead(), teleportDelay.getRotationPitch());
                 cooldown.setBack();
+                break;
+            }
+            case TELEPORT_PUBLIC_POINT: {
+                playerSource.playerNetServerHandler.setPlayerLocation(teleportDelay.getX(), teleportDelay.getY(), teleportDelay.getZ(), teleportDelay.getRotationYawHead(), teleportDelay.getRotationPitch());
+                cooldown.setTpPublic();
+                MessageSender.sendMessage(playerSource, MeowUtilities.SUCCESSFUL, "You has been teleported to " + teleportDelay.getTeleportPoint().getName());
+                break;
             }
         }
         MeowUtilities.teleportDelayList.remove(teleportDelay.playerSource);

@@ -22,6 +22,16 @@ public class PlayerGhost {
         return false;
     }
 
+    public Map<String, TeleportPoint> getPrivateTeleportPoints() {
+        Map<String, TeleportPoint> teleportPoints = new HashMap<>();
+        for (Map.Entry<String, TeleportPoint> teleportPoint : this.teleportPoints.entrySet()) {
+            if (!teleportPoint.getValue().isPublic()) {
+                teleportPoints.put(teleportPoint.getKey(), teleportPoint.getValue());
+            }
+        }
+        return teleportPoints;
+    }
+
     public Map<String, TeleportPoint> getPublicTeleportPoints() {
         Map<String, TeleportPoint> teleportPoints = new HashMap<>();
         for (Map.Entry<String, TeleportPoint> teleportPoint : this.teleportPoints.entrySet()) {

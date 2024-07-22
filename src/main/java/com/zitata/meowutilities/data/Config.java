@@ -3,6 +3,7 @@ package com.zitata.meowutilities.data;
 public class Config {
     private int teleportDelay = 5;
     private int tpCooldown = 300;
+    private int tpPublicCooldown = 600;
     private int tpaCooldown = 600;
     private int tpCount = 1;
     private int tpPublicCount = 0;
@@ -11,17 +12,17 @@ public class Config {
     private int dataSave = 300;
 
     /**
+     * @return value in ms
+     */
+    public int getTpPublicCooldown() {
+        return tpPublicCooldown * 1000;
+    }
+
+    /**
      * @return public teleport points max count
      */
     public int getTpPublicCount() {
         return tpPublicCount;
-    }
-
-    /**
-     * @param tpPublicCount public teleport points max count
-     */
-    public void setTpPublicCount(int tpPublicCount) {
-        this.tpPublicCount = tpPublicCount;
     }
 
     /**
@@ -120,5 +121,19 @@ public class Config {
      */
     public void setDataSave(int dataSave) {
         this.dataSave = dataSave;
+    }
+
+    /**
+     * @param tpPublicCount public teleport points max count
+     */
+    public void setTpPublicCount(int tpPublicCount) {
+        this.tpPublicCount = tpPublicCount;
+    }
+
+    /**
+     * @param tpPublicCooldown value in seconds
+     */
+    public void setPublicCooldown(int tpPublicCooldown) {
+        this.tpPublicCooldown = tpPublicCooldown;
     }
 }

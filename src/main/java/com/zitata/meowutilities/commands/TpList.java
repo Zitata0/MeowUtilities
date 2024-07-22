@@ -1,8 +1,8 @@
 package com.zitata.meowutilities.commands;
 
 import com.zitata.meowutilities.MeowUtilities;
-import com.zitata.meowutilities.util.MessageSender;
 import com.zitata.meowutilities.entity.PlayerGhost;
+import com.zitata.meowutilities.util.MessageSender;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -47,6 +47,8 @@ public class TpList extends CommandBase {
             return;
         }
 
-        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "TeleportPoints (" + playerGhost.teleportPoints.size() + "/" + MeowUtilities.config.getTpCount() + "): " + playerGhost.teleportPoints.keySet().toString());
+        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "TeleportPoints (" + playerGhost.teleportPoints.size() + "/" + MeowUtilities.config.getTpCount() + ")");
+        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "Private: " + playerGhost.getPrivateTeleportPoints().keySet().toString());
+        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "Public: " + playerGhost.getPublicTeleportPoints().keySet().toString());
     }
 }

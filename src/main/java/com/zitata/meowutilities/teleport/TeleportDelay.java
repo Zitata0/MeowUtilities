@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class TeleportDelay extends Point {
     public enum Target {
-        TELEPORT_POINT, PLAYER, OTHER
+        TELEPORT_POINT, PLAYER, OTHER, TELEPORT_PUBLIC_POINT
     }
 
     public final EntityPlayerMP playerSource;
@@ -57,7 +57,11 @@ public class TeleportDelay extends Point {
         if (playerSource == null) {
             throw new NullPointerException();
         }
-        targetType = Target.TELEPORT_POINT;
+        if (MeowUtilities.playerList.get(playerSource.getDisplayName()).teleportPoints.containsValue(teleportPoint)) {
+            targetType = Target.TELEPORT_POINT;
+        } else {
+            targetType = Target.TELEPORT_PUBLIC_POINT;
+        }
         this.playerSource = playerSource;
         this.teleportPoint = teleportPoint;
         teleportDelay();

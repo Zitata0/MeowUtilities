@@ -28,7 +28,7 @@ public class ServerTickEvent {
         secTimeStamp = System.currentTimeMillis();
 
         if (System.currentTimeMillis() >= saveDataTimeStamp) {
-            Data.savePlayerGhosts(MeowUtilities.playerList);
+            Data.saveAllPlayerGhost(MeowUtilities.playerList);
             Data.saveConfig(MeowUtilities.config);
             setSaveDataTimeStamp();
         }
