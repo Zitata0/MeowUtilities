@@ -30,7 +30,6 @@ public class Data {
         } else {
             config = new Config();
         }
-        System.out.printf("{teleportDelay:%d, tpCooldown:%d, tpaCooldown:%d, tpCount:%d, suicideCooldown:%d, backCooldown:%d, dataSave:%d}\n", config.getTeleportDelay(), config.getTpCooldown(), config.getTpaCooldown(), config.getTpCount(), config.getSuicideCooldown(), config.getBackCooldown(), config.getDataSave());
         return config;
     }
 
