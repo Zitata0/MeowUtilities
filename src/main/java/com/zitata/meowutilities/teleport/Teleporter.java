@@ -24,25 +24,26 @@ public class Teleporter {
             case TELEPORT_POINT: {
                 playerSource.playerNetServerHandler.setPlayerLocation(teleportDelay.getX(), teleportDelay.getY(), teleportDelay.getZ(), teleportDelay.getRotationYawHead(), teleportDelay.getRotationPitch());
                 cooldown.setTp();
-                MessageSender.sendMessage(playerSource, MeowUtilities.SUCCESSFUL, "You has been teleported to " + teleportDelay.getTeleportPoint().getName());
+                MessageSender.sendMessage(playerSource, MessageSender.SUCCESSFUL, "You has been teleported to " + teleportDelay.getTeleportPoint().getName());
                 break;
             }
             case PLAYER: {
                 playerSource.playerNetServerHandler.setPlayerLocation(playerTarget.posX, playerTarget.posY, playerTarget.posZ, playerTarget.rotationYawHead, playerTarget.rotationPitch);
                 cooldown.setTpa();
-                MessageSender.sendMessage(playerSource, MeowUtilities.SUCCESSFUL, "You have been teleported to " + playerTarget.getDisplayName());
-                MessageSender.sendMessage(playerTarget, MeowUtilities.SUCCESSFUL, playerSource.getDisplayName() + " was teleported to you");
+                MessageSender.sendMessage(playerSource, MessageSender.SUCCESSFUL, "You have been teleported to " + playerTarget.getDisplayName());
+                MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, playerSource.getDisplayName() + " was teleported to you");
                 break;
             }
             case OTHER: {
                 playerSource.playerNetServerHandler.setPlayerLocation(teleportDelay.getX(), teleportDelay.getY(), teleportDelay.getZ(), teleportDelay.getRotationYawHead(), teleportDelay.getRotationPitch());
-                cooldown.setBack();
+                cooldown.setBack(); // TODO Сделать телепортацию на последнюю точку смерти
+                cooldown.setSpawn(); // TODO Сделать серверные точки телепортации или варпы
                 break;
             }
             case TELEPORT_PUBLIC_POINT: {
                 playerSource.playerNetServerHandler.setPlayerLocation(teleportDelay.getX(), teleportDelay.getY(), teleportDelay.getZ(), teleportDelay.getRotationYawHead(), teleportDelay.getRotationPitch());
                 cooldown.setTpPublic();
-                MessageSender.sendMessage(playerSource, MeowUtilities.SUCCESSFUL, "You has been teleported to " + teleportDelay.getTeleportPoint().getName());
+                MessageSender.sendMessage(playerSource, MessageSender.SUCCESSFUL, "You has been teleported to " + teleportDelay.getTeleportPoint().getName());
                 break;
             }
         }

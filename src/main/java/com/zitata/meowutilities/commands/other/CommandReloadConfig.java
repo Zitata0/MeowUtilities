@@ -1,4 +1,4 @@
-package com.zitata.meowutilities.commands;
+package com.zitata.meowutilities.commands.other;
 
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.data.Data;
@@ -7,7 +7,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-public class ReloadCfg extends CommandBase {
+public class CommandReloadConfig extends CommandBase {
     @Override
     public String getCommandName() {
         return "reloadcfg";
@@ -15,7 +15,7 @@ public class ReloadCfg extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/reloadcfg";
+        return '/' + getCommandName();
     }
 
     @Override
@@ -29,7 +29,7 @@ public class ReloadCfg extends CommandBase {
 
         if (sender instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) sender;
-            MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "Configuration is reloaded");
+            MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "Configuration is reloaded");
         } else {
             System.out.println("Configuration is reloaded");
         }

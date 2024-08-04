@@ -1,4 +1,4 @@
-package com.zitata.meowutilities.commands;
+package com.zitata.meowutilities.commands.home;
 
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.entity.PlayerGhost;
@@ -7,19 +7,19 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class TpList extends CommandBase {
+public class CommandHomeList extends CommandBase {
 
     @Override
     public String getCommandName() {
-        return "tpl";
+        return "homelist";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/tpl";
+        return '/' + getCommandName();
     }
 
     @Override
@@ -29,12 +29,7 @@ public class TpList extends CommandBase {
 
     @Override
     public List<String> getCommandAliases() {
-        List<String> list = new ArrayList<String>();
-        list.add("homes");
-        list.add("homelist");
-        list.add("tplist");
-
-        return list;
+        return Arrays.asList("homes");
     }
 
     @Override
@@ -43,12 +38,12 @@ public class TpList extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "You do not have homes");
+            MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have homes");
             return;
         }
 
-        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "TeleportPoints (" + playerGhost.teleportPoints.size() + "/" + MeowUtilities.config.getTpCount() + ")");
-        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "Private: " + playerGhost.getPrivateTeleportPoints().keySet().toString());
-        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "Public: " + playerGhost.getPublicTeleportPoints().keySet().toString());
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "TeleportPoints (" + playerGhost.teleportPoints.size() + "/" + MeowUtilities.config.getTpCount() + ")");
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "Private: " + playerGhost.getPrivateTeleportPoints().keySet().toString());
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "Public: " + playerGhost.getPublicTeleportPoints().keySet().toString());
     }
 }

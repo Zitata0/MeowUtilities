@@ -10,6 +10,21 @@ public class Config {
     private int suicideCooldown = 60;
     private int backCooldown = 300;
     private int dataSave = 300;
+    private int spawnCooldown = 60;
+
+    /**
+     * @return value in ms
+     */
+    public int getSpawnCooldown() {
+        return spawnCooldown * 1000;
+    }
+
+    /**
+     * @param spawnCooldown value in seconds
+     */
+    public void setSpawnCooldown(int spawnCooldown) {
+        this.spawnCooldown = spawnCooldown;
+    }
 
     /**
      * @return value in ms

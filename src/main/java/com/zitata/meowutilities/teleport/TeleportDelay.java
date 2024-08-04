@@ -69,7 +69,7 @@ public class TeleportDelay extends Point {
 
     private void teleportDelay() {
         setTimeStamp();
-        MessageSender.sendMessage(playerSource, MeowUtilities.PASSIVE, "You will be teleported in " + MeowUtilities.config.getTeleportDelay() / 1000 + " seconds");
+        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, "You will be teleported in " + MeowUtilities.config.getTeleportDelay() / 1000 + " seconds");
         MeowUtilities.teleportDelayList.remove(playerSource);
     }
 
@@ -83,7 +83,7 @@ public class TeleportDelay extends Point {
         }
         for (EntityPlayerMP player : players) {
             teleportDelayMap.remove(player);
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "The teleportation to " + teleportPoint.getName() + " was interrupted");
+            MessageSender.sendMessage(player, MessageSender.ERROR, "The teleportation to " + teleportPoint.getName() + " was interrupted");
         }
     }
 

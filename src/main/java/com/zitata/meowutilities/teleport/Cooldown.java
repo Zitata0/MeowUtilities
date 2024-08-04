@@ -8,6 +8,28 @@ public class Cooldown {
     private long suicide = 0L;
     private long back = 0L;
     private long tpPublic = 0L;
+    private long spawn = 0L;
+
+    /**
+     * @return status of end cooldown
+     */
+    public boolean isSpawn() {
+        return System.currentTimeMillis() >= getSpawn();
+    }
+
+    /**
+     * @return timestamp of end cooldown in ms
+     */
+    public long getSpawn() {
+        return spawn;
+    }
+
+    /**
+     * set timestamp of end cooldown
+     */
+    public void setSpawn() {
+        spawn = System.currentTimeMillis() + MeowUtilities.config.getSpawnCooldown();
+    }
 
     /**
      * @return status of end cooldown

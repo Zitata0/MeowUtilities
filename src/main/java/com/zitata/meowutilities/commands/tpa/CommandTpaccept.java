@@ -1,4 +1,4 @@
-package com.zitata.meowutilities.commands;
+package com.zitata.meowutilities.commands.tpa;
 
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.teleport.TeleportDelay;
@@ -7,7 +7,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-public class Tpaccept extends CommandBase {
+public class CommandTpaccept extends CommandBase {
 
     @Override
     public String getCommandName() {
@@ -16,7 +16,7 @@ public class Tpaccept extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/tpaccept";
+        return '/' + getCommandName();
     }
 
     @Override
@@ -30,9 +30,10 @@ public class Tpaccept extends CommandBase {
 
         if (MeowUtilities.tpaRequestList.containsKey(playerTarget)) {
             MeowUtilities.teleportDelayList.put(MeowUtilities.tpaRequestList.get(playerTarget), new TeleportDelay(MeowUtilities.tpaRequestList.get(playerTarget), playerTarget));
+            MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, MeowUtilities.tpaRequestList.get(playerTarget).getDisplayName() + " will be teleported to you in " + MeowUtilities.config.getTeleportDelay() / 1000 + " seconds");
             MeowUtilities.tpaRequestList.remove(playerTarget);
         } else {
-            MessageSender.sendMessage(playerTarget, MeowUtilities.ERROR, "You do not have a teleport request");
+            MessageSender.sendMessage(playerTarget, MessageSender.ERROR, "You do not have a teleport request");
         }
     }
 }

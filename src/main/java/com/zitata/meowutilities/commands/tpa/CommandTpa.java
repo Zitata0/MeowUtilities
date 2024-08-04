@@ -1,4 +1,4 @@
-package com.zitata.meowutilities.commands;
+package com.zitata.meowutilities.commands.tpa;
 
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.entity.PlayerGhost;
@@ -10,7 +10,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import java.util.Arrays;
 import java.util.List;
 
-public class Tpa extends CommandBase {
+public class CommandTpa extends CommandBase {
 
     @Override
     public String getCommandName() {
@@ -19,7 +19,7 @@ public class Tpa extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/tpa [name]";
+        return '/' + getCommandName() + " [playerName]";
     }
 
     @Override
@@ -41,12 +41,12 @@ public class Tpa extends CommandBase {
         PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(playerSource.getDisplayName());
 
         if (!playerSourceGhost.getCooldown().isTpa()) {
-            MessageSender.sendMessage(playerSource, MeowUtilities.ERROR, "Tpa will recharge in " + ((playerSourceGhost.getCooldown().getTpa() - System.currentTimeMillis()) / 1000) + " seconds");
+            MessageSender.sendMessage(playerSource, MessageSender.ERROR, "Tpa will recharge in " + ((playerSourceGhost.getCooldown().getTpa() - System.currentTimeMillis()) / 1000) + " seconds");
             return;
         }
 
         if (args.length < 1) {
-            MessageSender.sendMessage(playerSource, MeowUtilities.ERROR, "Player not found");
+            MessageSender.sendMessage(playerSource, MessageSender.ERROR, "Player not found");
             return;
         }
 
@@ -60,13 +60,13 @@ public class Tpa extends CommandBase {
         }
 
         if (playerTarget == null) {
-            MessageSender.sendMessage(playerSource, MeowUtilities.ERROR, "Player not found");
+            MessageSender.sendMessage(playerSource, MessageSender.ERROR, "Player not found");
             return;
         }
 
         MeowUtilities.tpaRequestList.put(playerTarget, playerSource);
-        MessageSender.sendMessage(playerSource, MeowUtilities.PASSIVE, "Request has been sent to " + playerTarget.getDisplayName());
-        MessageSender.sendMessage(playerTarget, MeowUtilities.PASSIVE, playerSource.getDisplayName() + " wants to teleport to you");
-        MessageSender.sendMessage(playerTarget, MeowUtilities.SUCCESSFUL, "Use \"" + "/tpaccept" + "\" to accept teleport");
+        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, "Request has been sent to " + playerTarget.getDisplayName());
+        MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, playerSource.getDisplayName() + " wants to teleport to you");
+        MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, "Use \"" + "/tpaccept" + "\" to accept teleport");
     }
 }

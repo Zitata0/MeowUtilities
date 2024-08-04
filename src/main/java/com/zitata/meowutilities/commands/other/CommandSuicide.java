@@ -1,4 +1,4 @@
-package com.zitata.meowutilities.commands;
+package com.zitata.meowutilities.commands.other;
 
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.util.MessageSender;
@@ -8,7 +8,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 
-public class Suicide extends CommandBase {
+public class CommandSuicide extends CommandBase {
     @Override
     public String getCommandName() {
         return "suicide";
@@ -16,7 +16,7 @@ public class Suicide extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/suicide";
+        return '/' + getCommandName();
     }
 
     @Override
@@ -32,9 +32,9 @@ public class Suicide extends CommandBase {
         if (playerGhost.getCooldown().isSuicide()) {
             player.attackEntityFrom(DamageSource.generic.setDamageAllowedInCreativeMode().setDamageIsAbsolute(), Float.MAX_VALUE);
             playerGhost.getCooldown().setSuicide();
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "Think about kittens");
+            MessageSender.sendMessage(player, MessageSender.ERROR, "Think about kittens");
         } else {
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "Suicide will recharge in " + ((playerGhost.getCooldown().getSuicide() - System.currentTimeMillis()) / 1000) + " seconds");
+            MessageSender.sendMessage(player, MessageSender.ERROR, "Suicide will recharge in " + ((playerGhost.getCooldown().getSuicide() - System.currentTimeMillis()) / 1000) + " seconds");
         }
     }
 }

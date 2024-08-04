@@ -1,4 +1,4 @@
-package com.zitata.meowutilities.commands;
+package com.zitata.meowutilities.commands.home;
 
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.entity.PlayerGhost;
@@ -8,19 +8,18 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DelTp extends CommandBase {
+public class CommandDeleteHome extends CommandBase {
     @Override
     public String getCommandName() {
-        return "dtp";
+        return "delhome";
     }
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/dtp [name]";
+        return '/' + getCommandName() + " [name]";
     }
 
     @Override
@@ -37,40 +36,31 @@ public class DelTp extends CommandBase {
     }
 
     @Override
-    public List<String> getCommandAliases() {
-        List<String> list = new ArrayList<String>();
-        list.add("delhome");
-        list.add("deltp");
-
-        return list;
-    }
-
-    @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP) sender;
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "You do not have teleport points");
+            MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have teleport points");
             return;
         }
 
         String teleportPointName;
         if (args.length < 1) {
-            MessageSender.sendMessage(player, MeowUtilities.NEUTRAL, getCommandUsage(sender));
+            MessageSender.sendMessage(player, MessageSender.NEUTRAL, getCommandUsage(sender));
             return;
         } else {
             teleportPointName = args[0];
         }
 
         if (!playerGhost.teleportPoints.containsKey(teleportPointName)) {
-            MessageSender.sendMessage(player, MeowUtilities.ERROR, "Teleport point not found");
+            MessageSender.sendMessage(player, MessageSender.ERROR, "Teleport point not found");
             return;
         }
 
         TeleportDelay.removeDelays(MeowUtilities.teleportDelayList, playerGhost.teleportPoints.get(teleportPointName));
 
         playerGhost.teleportPoints.remove(teleportPointName);
-        MessageSender.sendMessage(player, MeowUtilities.SUCCESSFUL, "The \"" + teleportPointName + "\" has been removed");
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "The \"" + teleportPointName + "\" has been removed");
     }
 }
