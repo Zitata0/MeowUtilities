@@ -11,9 +11,9 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 public class CommandManager {
     public static void registryCommands(FMLServerStartingEvent event) {
         event.registerServerCommand(new CommandSetHome());
-        event.registerServerCommand(new CommandHome());
         event.registerServerCommand(new CommandDeleteHome());
         event.registerServerCommand(new CommandHomeList());
+        event.registerServerCommand(new CommandHome());
         event.registerServerCommand(new CommandSetPublicHome());
 
         event.registerServerCommand(new CommandTpaccept());
