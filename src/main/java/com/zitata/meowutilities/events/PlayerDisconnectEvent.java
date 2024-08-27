@@ -9,7 +9,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import java.util.AbstractMap;
 
 public class PlayerDisconnectEvent {
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent
     public void onPlayerDisconnect(PlayerEvent.PlayerLoggedOutEvent event) {
         if (MeowUtilities.playerList.containsKey(event.player.getDisplayName())) {
             Data.savePlayerGhost(new AbstractMap.SimpleEntry<>(event.player.getDisplayName(), MeowUtilities.playerList.get(event.player.getDisplayName())));

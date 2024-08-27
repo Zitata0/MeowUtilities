@@ -17,7 +17,7 @@ public class ServerTickEvent {
         setSaveDataTimeStamp();
     }
 
-    @SubscribeEvent(priority = EventPriority.NORMAL)
+    @SubscribeEvent
     public void onServerTick(TickEvent.ServerTickEvent event) {
 
         //Sec time
