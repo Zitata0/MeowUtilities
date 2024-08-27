@@ -16,3 +16,4 @@ run
 *.ipr
 *.iws
 .gradle
+/.idea
