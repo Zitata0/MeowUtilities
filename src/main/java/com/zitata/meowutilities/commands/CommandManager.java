@@ -4,7 +4,6 @@ import com.zitata.meowutilities.commands.home.*;
 import com.zitata.meowutilities.commands.other.CommandReloadConfig;
 import com.zitata.meowutilities.commands.other.CommandSpawn;
 import com.zitata.meowutilities.commands.other.CommandSuicide;
-import com.zitata.meowutilities.commands.other.CommandThor;
 import com.zitata.meowutilities.commands.tpa.CommandTpa;
 import com.zitata.meowutilities.commands.tpa.CommandTpaccept;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
@@ -22,7 +21,6 @@ public class CommandManager {
 
         event.registerServerCommand(new CommandReloadConfig());
         event.registerServerCommand(new CommandSuicide());
-        event.registerServerCommand(new CommandThor());
 
         event.registerServerCommand(new CommandSpawn());
     }

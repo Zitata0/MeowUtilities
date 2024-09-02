@@ -32,9 +32,9 @@ public class CommandSuicide extends CommandBase {
         if (playerGhost.getCooldown().isSuicide()) {
             player.attackEntityFrom(DamageSource.generic.setDamageAllowedInCreativeMode().setDamageIsAbsolute(), Float.MAX_VALUE);
             playerGhost.getCooldown().setSuicide();
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Think about kittens");
+            MessageSender.sendTranslatedMessage(player, MessageSender.ERROR, "commands.suicide.description");
         } else {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Suicide will recharge in " + ((playerGhost.getCooldown().getSuicide() - System.currentTimeMillis()) / 1000) + " seconds");
+            MessageSender.sendTranslatedMessage(player, MessageSender.ERROR, "commands.recharge.suicide", ((playerGhost.getCooldown().getSuicide() - System.currentTimeMillis()) / 1000));
         }
     }
 }

@@ -32,6 +32,7 @@ public class Teleporter {
                 cooldown.setTpa();
                 MessageSender.sendMessage(playerSource, MessageSender.SUCCESSFUL, "You have been teleported to " + playerTarget.getDisplayName());
                 MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, playerSource.getDisplayName() + " was teleported to you");
+                while (MeowUtilities.tpaRequestList.values().remove(playerSource));
                 break;
             }
             case OTHER: {

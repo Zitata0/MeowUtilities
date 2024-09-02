@@ -33,7 +33,7 @@ public class CommandDeleteHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return getListOfStringsMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).getTeleportPointsNameAsStringArray());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).teleportPoints.keySet());
     }
 
     @Override

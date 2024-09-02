@@ -10,8 +10,14 @@ commands.setpublichome.usage=/setpublic [title]
 commands.reloadcfg.usage=/reloadcfg
 commands.spawn.usage=/spawn
 commands.suicide.usage=/suicide
+commands.suicide.description=Think about kittens
 commands.tpa.usage=/tpa [playerName]
+commands.tpa.request.accept=Use '/tpaccept' to accept teleport
+commands.tpa.request.send=Request has been sent to %s
+commands.tpa.request.receive=%s wants to teleport to you
 commands.tpaccept.usage=/tpaccept
+commands.tpaccept.request.notfound=You do not have a teleport request
+commands.tpaccept.delay=%s will be teleported to you in %s seconds
 
 commands.teleportpoint.notfound=Teleport point not found
 commands.teleportpoint.removed=The '%s' has been removed
@@ -25,6 +31,6 @@ commands.teleportpoint.public.notpublic=Teleport point is not public
 
 commands.recharge.home.private=Tp to private point will recharge in %s seconds
 commands.recharge.home.public=Tp to public point will recharge in %s seconds
-commands.recharge.spawn=
-commands.recharge.suicide=
-commands.recharge.tpa=
+commands.recharge.spawn=Spawn will recharge in %s seconds
+commands.recharge.suicide=Suicide will recharge in %s seconds
+commands.recharge.tpa=Tpa will recharge in %s seconds

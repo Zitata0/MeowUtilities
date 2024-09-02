@@ -22,15 +22,6 @@ public class PlayerGhost {
         return false;
     }
 
-    public String[] getTeleportPointsNameAsStringArray() {
-        String[] strings = new String[teleportPoints.size()];
-        int index = 0;
-        for (String name : teleportPoints.keySet()) {
-            strings[index++] = name;
-        }
-        return strings;
-    }
-
     public Map<String, TeleportPoint> getPrivateTeleportPoints() {
         Map<String, TeleportPoint> teleportPoints = new HashMap<>();
         for (Map.Entry<String, TeleportPoint> teleportPoint : this.teleportPoints.entrySet()) {

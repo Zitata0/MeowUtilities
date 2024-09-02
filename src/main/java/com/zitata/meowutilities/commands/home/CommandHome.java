@@ -51,7 +51,7 @@ public class CommandHome extends CommandBase {
             }
             targets.addAll(playerGhostTarget.getPublicTeleportPoints().keySet());
         }
-        return targets;
+        return getListOfStringsFromIterableMatchingLastWord(args, targets);
     }
 
     @Override

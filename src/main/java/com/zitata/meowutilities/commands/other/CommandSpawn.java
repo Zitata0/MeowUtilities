@@ -33,7 +33,7 @@ public class CommandSpawn extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (!playerGhost.getCooldown().isSpawn()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Spawn will recharge in " + ((playerGhost.getCooldown().getSpawn() - System.currentTimeMillis()) / 1000) + " seconds");
+            MessageSender.sendTranslatedMessage(player, MessageSender.ERROR, "commands.recharge.spawn", ((playerGhost.getCooldown().getSpawn() - System.currentTimeMillis()) / 1000));
             return;
         }
 

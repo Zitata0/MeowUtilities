@@ -30,10 +30,10 @@ public class CommandTpaccept extends CommandBase {
 
         if (MeowUtilities.tpaRequestList.containsKey(playerTarget)) {
             MeowUtilities.teleportDelayList.put(MeowUtilities.tpaRequestList.get(playerTarget), new TeleportDelay(MeowUtilities.tpaRequestList.get(playerTarget), playerTarget));
-            MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, MeowUtilities.tpaRequestList.get(playerTarget).getDisplayName() + " will be teleported to you in " + MeowUtilities.config.getTeleportDelay() / 1000 + " seconds");
+            MessageSender.sendTranslatedMessage(playerTarget, MessageSender.PASSIVE, "commands.tpaccept.delay", MeowUtilities.tpaRequestList.get(playerTarget).getDisplayName(), MeowUtilities.config.getTeleportDelay() / 1000);
             MeowUtilities.tpaRequestList.remove(playerTarget);
         } else {
-            MessageSender.sendMessage(playerTarget, MessageSender.ERROR, "You do not have a teleport request");
+            MessageSender.sendTranslatedMessage(playerTarget, MessageSender.ERROR, "commands.tpaccept.request.notfound");
         }
     }
 }

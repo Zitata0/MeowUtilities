@@ -35,7 +35,7 @@ public class CommandSetHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return Arrays.asList(MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).teleportPoints.keySet().toArray());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).teleportPoints.keySet());
     }
 
     @Override
