@@ -15,7 +15,7 @@ public class CommandReloadConfig extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName();
+        return "commands.reloadcfg.usage";
     }
 
     @Override

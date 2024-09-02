@@ -15,7 +15,6 @@ apply plugin: 'forge'
 
 version = "1.3.7"
 group = "com.Zitata.MeowU"
-archivesBaseName = "MeowU"
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 

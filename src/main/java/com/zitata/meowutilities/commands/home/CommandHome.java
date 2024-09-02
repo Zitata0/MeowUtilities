@@ -6,7 +6,9 @@ import com.zitata.meowutilities.entity.PlayerGhost;
 import com.zitata.meowutilities.teleport.TeleportDelay;
 import com.zitata.meowutilities.util.MessageSender;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.command.PlayerNotFoundException;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class CommandHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName() + " [null/name]";
+        return "commands.home.usage";
     }
 
     @Override
@@ -41,11 +43,11 @@ public class CommandHome extends CommandBase {
             targets.addAll(MeowUtilities.playerList.get(player.getDisplayName()).teleportPoints.keySet());
             targets.addAll(Arrays.asList(player.mcServer.getAllUsernames()));
         } else {
-            PlayerGhost playerGhostTarget = null;
+            PlayerGhost playerGhostTarget;
             if (MeowUtilities.playerList.containsKey(args[0])) {
                 playerGhostTarget = MeowUtilities.playerList.get(args[0]);
-            } else {
-                playerGhostTarget = Data.getPlayerGhost(args[0]);
+            } else if ((playerGhostTarget = Data.getPlayerGhost(args[0])) == null) {
+                throw new PlayerNotFoundException();
             }
             targets.addAll(playerGhostTarget.getPublicTeleportPoints().keySet());
         }
@@ -71,34 +73,25 @@ public class CommandHome extends CommandBase {
         PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (!playerSourceGhost.getCooldown().isTpPublic()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Tp to public point will recharge in " + ((playerSourceGhost.getCooldown().getTpPublic() - System.currentTimeMillis()) / 1000) + " seconds");
-            return;
+            throw new CommandException("commands.recharge.home.public", ((playerSourceGhost.getCooldown().getTpPublic() - System.currentTimeMillis()) / 1000));
         }
 
         if (MeowUtilities.playerList.containsKey(playerTargetName)) {
             playerTargetGhost = MeowUtilities.playerList.get(playerTargetName);
-        } else {
-            playerTargetGhost = Data.getPlayerGhost(playerTargetName);
-            /**
-             * MessageSender.sendMessage(player, MeowUtilities.ERROR, playerTargetName + " not found");
-             * return;
-             *
-             */
+        } else if ((playerTargetGhost = Data.getPlayerGhost(playerTargetName)) == null) {
+            throw new PlayerNotFoundException();
         }
 
         if (!playerTargetGhost.hasPublicTeleportPoint()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, playerTargetName + " do not have public teleport points");
-            return;
+            throw new CommandException("commands.teleportpoint.public.player.other.nopoints", playerTargetName);
         }
 
         if (!playerTargetGhost.teleportPoints.containsKey(teleportPointName)) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Teleport point not found");
-            return;
+            throw new CommandException("commands.teleportpoint.notfound");
         }
 
         if (!playerTargetGhost.teleportPoints.get(teleportPointName).isPublic()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Teleport point is not public");
-            return;
+            throw new CommandException("commands.teleportpoint.public.notpublic");
         }
 
         MeowUtilities.teleportDelayList.put(player, new TeleportDelay(player, playerTargetGhost.teleportPoints.get(teleportPointName)));
@@ -108,18 +101,15 @@ public class CommandHome extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (!playerGhost.getCooldown().isTp()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Tp to private point will recharge in " + ((playerGhost.getCooldown().getTp() - System.currentTimeMillis()) / 1000) + " seconds");
-            return;
+            throw new CommandException("commands.recharge.home.private", ((playerGhost.getCooldown().getTp() - System.currentTimeMillis()) / 1000));
         }
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have teleport points");
-            return;
+            throw new CommandException("commands.teleportpoint.player.nopoints");
         }
 
         if (!playerGhost.teleportPoints.containsKey(teleportPointName)) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Teleport point not found");
-            return;
+            throw new CommandException("commands.teleportpoint.notfound");
         }
 
         MeowUtilities.teleportDelayList.put(player, new TeleportDelay(player, playerGhost.teleportPoints.get(teleportPointName)));

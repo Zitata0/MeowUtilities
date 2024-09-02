@@ -1,7 +1,7 @@
 [
 {
-  "modid": "MeowU",
-  "name": "${name}",
+  "modid": "meowutilities",
+  "name": "MeowUtilities",
   "description": "Meow servers commands",
   "version": "${version}",
   "mcversion": "${mcversion}",

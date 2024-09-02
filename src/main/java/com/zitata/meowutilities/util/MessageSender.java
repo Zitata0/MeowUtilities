@@ -1,6 +1,7 @@
 package com.zitata.meowutilities.util;
 
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
@@ -11,15 +12,31 @@ public class MessageSender {
     public static final EnumChatFormatting PASSIVE = EnumChatFormatting.GRAY;
     public static final EnumChatFormatting NEUTRAL = EnumChatFormatting.WHITE;
 
-    public static void sendMessage(ICommandSender player, EnumChatFormatting color, String text) {
+    private static ChatComponentTranslation translate(EnumChatFormatting color, String text, Object ... objects) {
+        ChatComponentTranslation message = new ChatComponentTranslation(text, objects);
+        message.getChatStyle().setColor(color);
+        return message;
+    }
+
+    private static ChatComponentText format(EnumChatFormatting color, String text) {
         ChatComponentText message = new ChatComponentText(text);
         message.getChatStyle().setColor(color);
-        player.addChatMessage(message);
+        return message;
+    }
+
+    public static void sendMessage(ICommandSender player, EnumChatFormatting color, String text) {
+        player.addChatMessage(format(color, text));
     }
 
     public static void sendTranslatedMessage(ICommandSender player, EnumChatFormatting color, String text, Object ... objects) {
-        ChatComponentTranslation message = new ChatComponentTranslation(text, objects);
-        message.getChatStyle().setColor(color);
-        player.addChatMessage(message);
+        player.addChatMessage(translate(color, text, objects));
+    }
+
+    public static void sendServerMessage(MinecraftServer server, EnumChatFormatting color, String text) {
+        server.getConfigurationManager().sendChatMsg(format(color, text));
+    }
+
+    public static void sendTranslatedServerMessage(MinecraftServer server, EnumChatFormatting color, String text, Object ... objects) {
+        server.getConfigurationManager().sendChatMsg(translate(color, text, objects));
     }
 }

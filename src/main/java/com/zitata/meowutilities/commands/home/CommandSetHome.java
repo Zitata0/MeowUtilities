@@ -6,6 +6,7 @@ import com.zitata.meowutilities.teleport.TeleportDelay;
 import com.zitata.meowutilities.teleport.TeleportPoint;
 import com.zitata.meowutilities.util.MessageSender;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -21,7 +22,7 @@ public class CommandSetHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName() + " [null/name]";
+        return "commands.sethome.usage";
     }
 
     @Override
@@ -42,8 +43,7 @@ public class CommandSetHome extends CommandBase {
         EntityPlayerMP player = (EntityPlayerMP) sender;
 
         if (!((player.dimension == 0) || (player.dimension >= 400 && player.dimension <= 500))) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have permission to create a home in this world");
-            return;
+            throw new CommandException("commands.teleportpoint.blacklist.add");
         }
 
         String teleportPointName;
@@ -56,8 +56,7 @@ public class CommandSetHome extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.size() > MeowUtilities.config.getTpCount()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "You have a lot of teleport points");
-            return;
+            throw new CommandException("commands.teleportpoint.player.limit");
         }
 
         if (playerGhost.teleportPoints.containsKey(teleportPointName)) {
@@ -65,12 +64,12 @@ public class CommandSetHome extends CommandBase {
 
             playerGhost.teleportPoints.get(teleportPointName).setPoint(player.dimension, player.posX, player.posY, player.posZ, player.rotationYawHead, player.rotationPitch);
             playerGhost.teleportPoints.get(teleportPointName).setPublic(false);
-            MessageSender.sendMessage(player, MessageSender.PASSIVE, "The \"" + teleportPointName + "\" has been modified");
+            MessageSender.sendTranslatedMessage(player, MessageSender.PASSIVE, "commands.teleportpoint.added", teleportPointName);
         } else if (playerGhost.teleportPoints.size() >= MeowUtilities.config.getTpCount()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "You have a lot of teleport points");
+            throw new CommandException("commands.teleportpoint.player.limit");
         } else {
             playerGhost.teleportPoints.put(teleportPointName, new TeleportPoint(teleportPointName, player.dimension, player.posX, player.posY, player.posZ, player.rotationYawHead, player.rotationPitch));
-            MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "The \"" + teleportPointName + "\" has been added");
+            MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.teleportpoint.added", teleportPointName);
         }
     }
 }

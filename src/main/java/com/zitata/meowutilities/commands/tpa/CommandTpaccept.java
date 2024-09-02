@@ -16,7 +16,7 @@ public class CommandTpaccept extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName();
+        return "commands.tpaccept.usage";
     }
 
     @Override

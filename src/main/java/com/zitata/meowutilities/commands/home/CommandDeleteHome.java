@@ -5,6 +5,7 @@ import com.zitata.meowutilities.entity.PlayerGhost;
 import com.zitata.meowutilities.teleport.TeleportDelay;
 import com.zitata.meowutilities.util.MessageSender;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -19,7 +20,7 @@ public class CommandDeleteHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName() + " [name]";
+        return "commands.deletehome.usage";
     }
 
     @Override
@@ -32,7 +33,7 @@ public class CommandDeleteHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return Arrays.asList(MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).teleportPoints.keySet().toArray());
+        return getListOfStringsMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).getTeleportPointsNameAsStringArray());
     }
 
     @Override
@@ -41,8 +42,7 @@ public class CommandDeleteHome extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have teleport points");
-            return;
+            throw new CommandException("commands.teleportpoint.player.nopoints");
         }
 
         String teleportPointName;
@@ -54,13 +54,12 @@ public class CommandDeleteHome extends CommandBase {
         }
 
         if (!playerGhost.teleportPoints.containsKey(teleportPointName)) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "Teleport point not found");
-            return;
+            throw new CommandException("commands.teleportpoint.notfound");
         }
 
         TeleportDelay.removeDelays(MeowUtilities.teleportDelayList, playerGhost.teleportPoints.get(teleportPointName));
 
         playerGhost.teleportPoints.remove(teleportPointName);
-        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "The \"" + teleportPointName + "\" has been removed");
+        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.teleportpoint.removed", teleportPointName);
     }
 }

@@ -19,7 +19,7 @@ public class CommandTpa extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName() + " [playerName]";
+        return "commands.tpa.usage";
     }
 
     @Override

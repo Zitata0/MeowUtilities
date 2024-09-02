@@ -25,7 +25,7 @@ import java.util.Map;
         version = MeowUtilities.version
 )
 public class MeowUtilities {
-    public static final String modId = "MeowU";
+    public static final String modId = "meowutilities";
     public static final String modName = "MeowUtilities";
     public static final String version = "1.3.7";
 

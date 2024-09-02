@@ -33,6 +33,7 @@ public class Data {
         } else {
             config = new Config();
         }
+        saveConfig(config);
         return config;
     }
 
@@ -43,7 +44,7 @@ public class Data {
     public static PlayerGhost getPlayerGhost(String playerName) {
         File file = new File(PLAYERS_DIR, playerName + ".json");
         if (!file.exists()) {
-            return new PlayerGhost();
+            return null;
         }
         JsonObject data = readJson(file).getAsJsonObject();
         return GSON.fromJson(data, PlayerGhost.class);

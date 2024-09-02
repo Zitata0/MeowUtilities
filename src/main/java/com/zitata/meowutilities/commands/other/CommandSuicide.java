@@ -16,7 +16,7 @@ public class CommandSuicide extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName();
+        return "commands.suicide.usage";
     }
 
     @Override

@@ -20,7 +20,7 @@ public class CommandSetPublicHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName() + " [name]";
+        return "commands.setpublichome.usage";
     }
 
     @Override

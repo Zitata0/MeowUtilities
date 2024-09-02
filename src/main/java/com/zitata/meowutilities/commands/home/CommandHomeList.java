@@ -4,6 +4,7 @@ import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.entity.PlayerGhost;
 import com.zitata.meowutilities.util.MessageSender;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 
@@ -19,7 +20,7 @@ public class CommandHomeList extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return '/' + getCommandName();
+        return "commands.homelist.usage";
     }
 
     @Override
@@ -38,12 +39,11 @@ public class CommandHomeList extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have homes");
-            return;
+            throw new CommandException("commands.teleportpoint.player.nopoints");
         }
 
-        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "TeleportPoints (" + playerGhost.teleportPoints.size() + "/" + MeowUtilities.config.getTpCount() + ")");
-        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "Private: " + playerGhost.getPrivateTeleportPoints().keySet().toString());
-        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "Public: " + playerGhost.getPublicTeleportPoints().keySet().toString());
+        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.homelist.header", playerGhost.teleportPoints.size(), MeowUtilities.config.getTpCount());
+        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.homelist.private", playerGhost.getPrivateTeleportPoints().keySet().toString());
+        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.homelist.public", playerGhost.getPublicTeleportPoints().keySet().toString());
     }
 }

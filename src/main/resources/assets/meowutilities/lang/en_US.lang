@@ -1,0 +1,30 @@
+
+commands.deletehome.usage=/delhome [title]
+commands.home.usage=/home [null/title]
+commands.homelist.usage=/homelist
+commands.homelist.header=TeleportPoints (%s/%s)
+commands.homelist.private=Private: %s
+commands.homelist.public=Public: %s
+commands.sethome.usage=/sethome [null/title]
+commands.setpublichome.usage=/setpublic [title]
+commands.reloadcfg.usage=/reloadcfg
+commands.spawn.usage=/spawn
+commands.suicide.usage=/suicide
+commands.tpa.usage=/tpa [playerName]
+commands.tpaccept.usage=/tpaccept
+
+commands.teleportpoint.notfound=Teleport point not found
+commands.teleportpoint.removed=The '%s' has been removed
+commands.teleportpoint.modified=The '%s' has been modified
+commands.teleportpoint.added=The '%s' has been added
+commands.teleportpoint.player.nopoints=You do not have teleport points
+commands.teleportpoint.player.limit=You have a lot of teleport points
+commands.teleportpoint.blacklist.add=You do not have permission to create a home in this world
+commands.teleportpoint.public.player.other.nopoints=%s do not have public teleport points
+commands.teleportpoint.public.notpublic=Teleport point is not public
+
+commands.recharge.home.private=Tp to private point will recharge in %s seconds
+commands.recharge.home.public=Tp to public point will recharge in %s seconds
+commands.recharge.spawn=
+commands.recharge.suicide=
+commands.recharge.tpa=
