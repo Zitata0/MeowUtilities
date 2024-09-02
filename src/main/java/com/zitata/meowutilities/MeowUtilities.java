@@ -27,7 +27,7 @@ import java.util.Map;
 public class MeowUtilities {
     public static final String modId = "meowutilities";
     public static final String modName = "MeowUtilities";
-    public static final String version = "1.3.7";
+    public static final String version = "1.3.8";
 
     public static Data data = new Data();
     public static Config config = Data.readConfig();
