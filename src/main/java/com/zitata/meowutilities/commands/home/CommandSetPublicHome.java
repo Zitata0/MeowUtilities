@@ -20,7 +20,7 @@ public class CommandSetPublicHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.setpublichome.usage";
+        return "/setpublic [title]";
     }
 
     @Override
@@ -65,6 +65,6 @@ public class CommandSetPublicHome extends CommandBase {
         }
 
         teleportPoint.setPublic(!teleportPoint.isPublic());
-        MessageSender.sendMessage(player, MessageSender.PASSIVE, "The \"" + teleportPoint.getName() + "\" has been modified");
+        MessageSender.sendMessage(player, MessageSender.PASSIVE, String.format("The '%s' has been modified", teleportPoint.getName()));
     }
 }

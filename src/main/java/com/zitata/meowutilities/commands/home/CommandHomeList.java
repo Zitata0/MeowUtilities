@@ -20,7 +20,7 @@ public class CommandHomeList extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.homelist.usage";
+        return "/homelist";
     }
 
     @Override
@@ -39,11 +39,11 @@ public class CommandHomeList extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            throw new CommandException("commands.teleportpoint.player.nopoints");
+            throw new CommandException("You do not have teleport points");
         }
 
-        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.homelist.header", playerGhost.teleportPoints.size(), MeowUtilities.config.getTpCount());
-        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.homelist.private", playerGhost.getPrivateTeleportPoints().keySet().toString());
-        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.homelist.public", playerGhost.getPublicTeleportPoints().keySet().toString());
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("TeleportPoints (%s/%s)", playerGhost.teleportPoints.size(), MeowUtilities.config.getTpCount()));
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("Private: %s", playerGhost.getPrivateTeleportPoints().keySet().toString()));
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("Public: %s", playerGhost.getPublicTeleportPoints().keySet().toString()));
     }
 }

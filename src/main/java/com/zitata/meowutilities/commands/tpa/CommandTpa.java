@@ -21,7 +21,7 @@ public class CommandTpa extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.tpa.usage";
+        return "/tpa [playerName]";
     }
 
     @Override
@@ -40,14 +40,14 @@ public class CommandTpa extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         if (args.length < 1) {
-            throw new CommandException("commands.tpa.usage");
+            throw new CommandException(getCommandUsage(sender));
         }
 
         EntityPlayerMP playerSource = (EntityPlayerMP) sender;
         PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(playerSource.getDisplayName());
 
         if (!playerSourceGhost.getCooldown().isTpa()) {
-            MessageSender.sendTranslatedMessage(playerSource, MessageSender.ERROR, "commands.recharge.tpa", ((playerSourceGhost.getCooldown().getTpa() - System.currentTimeMillis()) / 1000));
+            MessageSender.sendMessage(playerSource, MessageSender.ERROR, String.format("Tpa will recharge in %s seconds", ((playerSourceGhost.getCooldown().getTpa() - System.currentTimeMillis()) / 1000)));
             return;
         }
 
@@ -65,8 +65,8 @@ public class CommandTpa extends CommandBase {
         }
 
         MeowUtilities.tpaRequestList.put(playerTarget, playerSource);
-        MessageSender.sendTranslatedMessage(playerSource, MessageSender.PASSIVE, "commands.tpa.request.send", playerTarget.getDisplayName());
-        MessageSender.sendTranslatedMessage(playerTarget, MessageSender.PASSIVE, "commands.tpa.request.receive", playerSource.getDisplayName());
-        MessageSender.sendTranslatedMessage(playerTarget, MessageSender.SUCCESSFUL, "commands.tpa.request.accept");
+        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, String.format("Request has been sent to %s", playerTarget.getDisplayName()));
+        MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, String.format("%s wants to teleport to you", playerSource.getDisplayName()));
+        MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, "Use '/tpaccept' to accept teleport");
     }
 }

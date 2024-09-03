@@ -22,7 +22,7 @@ public class CommandSetHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.sethome.usage";
+        return "/sethome [null/title]";
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CommandSetHome extends CommandBase {
         EntityPlayerMP player = (EntityPlayerMP) sender;
 
         if (!((player.dimension == 0) || (player.dimension >= 400 && player.dimension <= 500))) {
-            throw new CommandException("commands.teleportpoint.blacklist.add");
+            throw new CommandException("You do not have permission to create a home in this world");
         }
 
         String teleportPointName;
@@ -56,7 +56,7 @@ public class CommandSetHome extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.size() > MeowUtilities.config.getTpCount()) {
-            throw new CommandException("commands.teleportpoint.player.limit");
+            throw new CommandException("You have a lot of teleport points");
         }
 
         if (playerGhost.teleportPoints.containsKey(teleportPointName)) {
@@ -64,12 +64,12 @@ public class CommandSetHome extends CommandBase {
 
             playerGhost.teleportPoints.get(teleportPointName).setPoint(player.dimension, player.posX, player.posY, player.posZ, player.rotationYawHead, player.rotationPitch);
             playerGhost.teleportPoints.get(teleportPointName).setPublic(false);
-            MessageSender.sendTranslatedMessage(player, MessageSender.PASSIVE, "commands.teleportpoint.added", teleportPointName);
+            MessageSender.sendMessage(player, MessageSender.PASSIVE, String.format("The '%s' has been added", teleportPointName));
         } else if (playerGhost.teleportPoints.size() >= MeowUtilities.config.getTpCount()) {
-            throw new CommandException("commands.teleportpoint.player.limit");
+            throw new CommandException("You have a lot of teleport points");
         } else {
             playerGhost.teleportPoints.put(teleportPointName, new TeleportPoint(teleportPointName, player.dimension, player.posX, player.posY, player.posZ, player.rotationYawHead, player.rotationPitch));
-            MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.teleportpoint.added", teleportPointName);
+            MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("The '%s' has been added", teleportPointName));
         }
     }
 }

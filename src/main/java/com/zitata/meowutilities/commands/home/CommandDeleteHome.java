@@ -20,7 +20,7 @@ public class CommandDeleteHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.deletehome.usage";
+        return "/delhome [title]";
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CommandDeleteHome extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
-            throw new CommandException("commands.teleportpoint.player.nopoints");
+            throw new CommandException("You do not have teleport points");
         }
 
         String teleportPointName;
@@ -54,12 +54,12 @@ public class CommandDeleteHome extends CommandBase {
         }
 
         if (!playerGhost.teleportPoints.containsKey(teleportPointName)) {
-            throw new CommandException("commands.teleportpoint.notfound");
+            throw new CommandException("Teleport point not found");
         }
 
         TeleportDelay.removeDelays(MeowUtilities.teleportDelayList, playerGhost.teleportPoints.get(teleportPointName));
 
         playerGhost.teleportPoints.remove(teleportPointName);
-        MessageSender.sendTranslatedMessage(player, MessageSender.SUCCESSFUL, "commands.teleportpoint.removed", teleportPointName);
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("The '%s' has been removed", teleportPointName));
     }
 }

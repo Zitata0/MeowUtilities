@@ -15,7 +15,7 @@ public class CommandReloadConfig extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.reloadcfg.usage";
+        return "/reloadcfg";
     }
 
     @Override
@@ -26,7 +26,6 @@ public class CommandReloadConfig extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         MeowUtilities.config = Data.readConfig();
-        EntityPlayerMP player = (EntityPlayerMP) sender;
-        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, "Configuration is reloaded");
+        MessageSender.sendMessage(sender, MessageSender.SUCCESSFUL, "Configuration is reloaded");
     }
 }

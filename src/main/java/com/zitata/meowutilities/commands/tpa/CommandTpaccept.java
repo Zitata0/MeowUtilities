@@ -16,7 +16,7 @@ public class CommandTpaccept extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.tpaccept.usage";
+        return "/tpaccept";
     }
 
     @Override
@@ -30,10 +30,10 @@ public class CommandTpaccept extends CommandBase {
 
         if (MeowUtilities.tpaRequestList.containsKey(playerTarget)) {
             MeowUtilities.teleportDelayList.put(MeowUtilities.tpaRequestList.get(playerTarget), new TeleportDelay(MeowUtilities.tpaRequestList.get(playerTarget), playerTarget));
-            MessageSender.sendTranslatedMessage(playerTarget, MessageSender.PASSIVE, "commands.tpaccept.delay", MeowUtilities.tpaRequestList.get(playerTarget).getDisplayName(), MeowUtilities.config.getTeleportDelay() / 1000);
+            MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, String.format("%s will be teleported to you in %s seconds", MeowUtilities.tpaRequestList.get(playerTarget).getDisplayName(), MeowUtilities.config.getTeleportDelay() / 1000));
             MeowUtilities.tpaRequestList.remove(playerTarget);
         } else {
-            MessageSender.sendTranslatedMessage(playerTarget, MessageSender.ERROR, "commands.tpaccept.request.notfound");
+            MessageSender.sendMessage(playerTarget, MessageSender.ERROR, "You do not have a teleport request");
         }
     }
 }

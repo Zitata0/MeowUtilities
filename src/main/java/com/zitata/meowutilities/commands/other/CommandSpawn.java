@@ -19,7 +19,7 @@ public class CommandSpawn extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "commands.spawn.usage";
+        return "/spawn";
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CommandSpawn extends CommandBase {
         PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
 
         if (!playerGhost.getCooldown().isSpawn()) {
-            MessageSender.sendTranslatedMessage(player, MessageSender.ERROR, "commands.recharge.spawn", ((playerGhost.getCooldown().getSpawn() - System.currentTimeMillis()) / 1000));
+            MessageSender.sendMessage(player, MessageSender.ERROR, String.format("Spawn will recharge in %s seconds", ((playerGhost.getCooldown().getSpawn() - System.currentTimeMillis()) / 1000)));
             return;
         }
 

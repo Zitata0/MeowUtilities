@@ -29,6 +29,7 @@ public class MessageSender {
     }
 
     public static void sendTranslatedMessage(ICommandSender player, EnumChatFormatting color, String text, Object ... objects) {
+        System.out.println(translate(color, text, objects));
         player.addChatMessage(translate(color, text, objects));
     }
 
