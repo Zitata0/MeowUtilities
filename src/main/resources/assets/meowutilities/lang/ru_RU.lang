@@ -1,0 +1,36 @@
+
+commands.deletehome.usage=/delhome [название]
+commands.home.usage=/home [пусто/название]
+commands.homelist.usage=/homelist
+commands.homelist.header=Точки телепорации (%s/%s)
+commands.homelist.private=Приватные: %s
+commands.homelist.public=Общедоступные: %s
+commands.sethome.usage=/sethome [пусто/название]
+commands.setpublichome.usage=/setpublic [название]
+commands.reloadcfg.usage=/reloadcfg
+commands.spawn.usage=/spawn
+commands.suicide.usage=/suicide
+commands.suicide.description=Подумайте о котятах
+commands.tpa.usage=/tpa [имя игрока]
+commands.tpa.request.accept=Используйте '/tpaccept' для принятия запроса
+commands.tpa.request.send=Запрос был отправлен %s
+commands.tpa.request.receive=%s хочет телепортироваться к вам
+commands.tpaccept.usage=/tpaccept
+commands.tpaccept.request.notfound=У вас нет запросов на телепортацию
+commands.tpaccept.delay=%s будет телепортирован через %s секунд
+
+commands.teleportpoint.notfound=Точка телепортации не найдена
+commands.teleportpoint.removed=Точка телепортации '%s' была удалена
+commands.teleportpoint.modified=Точка телепортации '%s' была изменена
+commands.teleportpoint.added=Точка телепортации '%s' была добавлена
+commands.teleportpoint.player.nopoints=У вас нет точек телепортации
+commands.teleportpoint.player.limit=У вас слишком много точек телепортации
+commands.teleportpoint.blacklist.add=У вас нет прав на создание точки телепортации в данном мире
+commands.teleportpoint.public.player.other.nopoints=%s не имеет общедоступных точек телепортации
+commands.teleportpoint.public.notpublic=Точка телепортации не общедоступная
+
+commands.recharge.home.private=Телепортацию на приватную точку телепортации будет доступена через in %s секунд
+commands.recharge.home.public=Телепортацию на общедоступную точку телепортации будет доступена через in %s секунд
+commands.recharge.spawn=Телепортация на 'spawn' будет доступена через %s секунд
+commands.recharge.suicide=Возможность умереть будет доступна через %s секунд
+commands.recharge.tpa=Телепортация к другим игрокам будет доступна через %s секунд

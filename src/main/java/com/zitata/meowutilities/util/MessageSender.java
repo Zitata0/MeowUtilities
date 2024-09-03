@@ -32,11 +32,11 @@ public class MessageSender {
         player.addChatMessage(translate(color, text, objects));
     }
 
-    public static void sendServerMessage(MinecraftServer server, EnumChatFormatting color, String text) {
-        server.getConfigurationManager().sendChatMsg(format(color, text));
+    public static void sendServerMessage(EnumChatFormatting color, String text) {
+        MinecraftServer.getServer().getConfigurationManager().sendChatMsg(format(color, text));
     }
 
-    public static void sendTranslatedServerMessage(MinecraftServer server, EnumChatFormatting color, String text, Object ... objects) {
-        server.getConfigurationManager().sendChatMsg(translate(color, text, objects));
+    public static void sendTranslatedServerMessage(EnumChatFormatting color, String text, Object ... objects) {
+        MinecraftServer.getServer().getConfigurationManager().sendChatMsg(translate(color, text, objects));
     }
 }
