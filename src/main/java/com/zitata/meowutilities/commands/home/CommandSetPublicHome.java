@@ -33,7 +33,7 @@ public class CommandSetPublicHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).teleportPoints.keySet());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getId().toString()).teleportPoints.keySet());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CommandSetPublicHome extends CommandBase {
             return;
         }
 
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
 
         if (playerGhost.teleportPoints.isEmpty()) {
             MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have teleport points");
@@ -54,7 +54,7 @@ public class CommandSetPublicHome extends CommandBase {
 
         TeleportPoint teleportPoint;
         if (playerGhost.teleportPoints.containsKey(args[0])) {
-            if (!playerGhost.teleportPoints.get(args[0]).isPublic() && playerGhost.publicTeleportPointCount() >= MeowUtilities.config.getTpPublicCount()) {
+            if (!playerGhost.teleportPoints.get(args[0]).isPublic() && playerGhost.publicTeleportPointCount() >= MeowUtilities.INSTANCE.config.getTpPublicCount()) {
                 MessageSender.sendMessage(player, MessageSender.ERROR, "You have a lot of public teleport points");
                 return;
             }

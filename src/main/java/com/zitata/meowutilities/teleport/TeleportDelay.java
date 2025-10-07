@@ -57,7 +57,7 @@ public class TeleportDelay extends Point {
         if (playerSource == null) {
             throw new NullPointerException();
         }
-        if (MeowUtilities.playerList.get(playerSource.getDisplayName()).teleportPoints.containsValue(teleportPoint)) {
+        if (MeowUtilities.playerList.get(playerSource.getGameProfile().getId().toString()).teleportPoints.containsValue(teleportPoint)) {
             targetType = Target.TELEPORT_POINT;
         } else {
             targetType = Target.TELEPORT_PUBLIC_POINT;
@@ -69,7 +69,7 @@ public class TeleportDelay extends Point {
 
     private void teleportDelay() {
         setTimeStamp();
-        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, "You will be teleported in " + MeowUtilities.config.getTeleportDelay() / 1000 + " seconds");
+        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, "You will be teleported in " + MeowUtilities.INSTANCE.config.getTeleportDelay() / 1000 + " seconds");
         MeowUtilities.teleportDelayList.remove(playerSource);
     }
 
@@ -110,6 +110,6 @@ public class TeleportDelay extends Point {
     }
 
     public void setTimeStamp() {
-        this.timeStamp = System.currentTimeMillis() + MeowUtilities.config.getTeleportDelay();
+        this.timeStamp = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getTeleportDelay();
     }
 }

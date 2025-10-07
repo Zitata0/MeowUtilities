@@ -27,9 +27,9 @@ public class CommandSuicide extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP) sender;
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
 
-        if (playerGhost.getCooldown().isSuicide()) {
+        if (playerGhost.getCooldown().isSuicide() || player.canCommandSenderUseCommand(2, this.getCommandName())) {
             player.attackEntityFrom(DamageSource.generic.setDamageAllowedInCreativeMode().setDamageIsAbsolute(), Float.MAX_VALUE);
             playerGhost.getCooldown().setSuicide();
             MessageSender.sendMessage(player, MessageSender.ERROR, "Think about kittens");

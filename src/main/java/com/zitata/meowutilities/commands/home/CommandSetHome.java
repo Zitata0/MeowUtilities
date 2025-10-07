@@ -35,16 +35,19 @@ public class CommandSetHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getDisplayName()).teleportPoints.keySet());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getId().toString()).teleportPoints.keySet());
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP) sender;
 
-        if (!((player.dimension == 0) || (player.dimension >= 400 && player.dimension <= 500))) {
+        /*
+        String dimName = player.mcServer.worldServerForDimension(player.dimension).provider.getDimensionName();
+        if (!(player.dimension == 0 || dimName.contains("PERSONAL") || dimName.contains("SPACESTATION"))) {
             throw new CommandException("You do not have permission to create a home in this world");
         }
+        */
 
         String teleportPointName;
         if (args.length > 0) {
@@ -53,9 +56,9 @@ public class CommandSetHome extends CommandBase {
             teleportPointName = "home";
         }
 
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
 
-        if (playerGhost.teleportPoints.size() > MeowUtilities.config.getTpCount()) {
+        if (playerGhost.teleportPoints.size() > MeowUtilities.INSTANCE.config.getTpCount()) {
             throw new CommandException("You have a lot of teleport points");
         }
 
@@ -65,7 +68,7 @@ public class CommandSetHome extends CommandBase {
             playerGhost.teleportPoints.get(teleportPointName).setPoint(player.dimension, player.posX, player.posY, player.posZ, player.rotationYawHead, player.rotationPitch);
             playerGhost.teleportPoints.get(teleportPointName).setPublic(false);
             MessageSender.sendMessage(player, MessageSender.PASSIVE, String.format("The '%s' has been added", teleportPointName));
-        } else if (playerGhost.teleportPoints.size() >= MeowUtilities.config.getTpCount()) {
+        } else if (playerGhost.teleportPoints.size() >= MeowUtilities.INSTANCE.config.getTpCount()) {
             throw new CommandException("You have a lot of teleport points");
         } else {
             playerGhost.teleportPoints.put(teleportPointName, new TeleportPoint(teleportPointName, player.dimension, player.posX, player.posY, player.posZ, player.rotationYawHead, player.rotationPitch));

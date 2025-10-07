@@ -3,7 +3,7 @@ package com.zitata.meowutilities.events;
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.data.Data;
 import com.zitata.meowutilities.teleport.TeleportDelay;
-import cpw.mods.fml.common.eventhandler.EventPriority;
+import com.zitata.meowutilities.teleport.Teleporter;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 
@@ -29,19 +29,18 @@ public class ServerTickEvent {
 
         if (System.currentTimeMillis() >= saveDataTimeStamp) {
             Data.saveAllPlayerGhost(MeowUtilities.playerList);
-            Data.saveConfig(MeowUtilities.config);
             setSaveDataTimeStamp();
         }
 
         for (TeleportDelay teleportDelay : MeowUtilities.teleportDelayList.values()) {
             if (teleportDelay.isDelay()) {
-                MeowUtilities.teleporter.teleportTo(teleportDelay);
+                Teleporter.teleportTo(teleportDelay);
                 break;
             }
         }
     }
 
     private void setSaveDataTimeStamp() {
-        saveDataTimeStamp = System.currentTimeMillis() + MeowUtilities.config.getDataSave(); //Save data every 5 min
+        saveDataTimeStamp = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getDataSave(); //Save data every 5 min
     }
 }

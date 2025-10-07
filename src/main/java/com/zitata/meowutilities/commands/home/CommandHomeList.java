@@ -36,13 +36,13 @@ public class CommandHomeList extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP) sender;
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getDisplayName());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
 
         if (playerGhost.teleportPoints.isEmpty()) {
             throw new CommandException("You do not have teleport points");
         }
 
-        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("TeleportPoints (%s/%s)", playerGhost.teleportPoints.size(), MeowUtilities.config.getTpCount()));
+        MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("TeleportPoints (%s/%s)", playerGhost.teleportPoints.size(), MeowUtilities.INSTANCE.config.getTpCount()));
         MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("Private: %s", playerGhost.getPrivateTeleportPoints().keySet().toString()));
         MessageSender.sendMessage(player, MessageSender.SUCCESSFUL, String.format("Public: %s", playerGhost.getPublicTeleportPoints().keySet().toString()));
     }

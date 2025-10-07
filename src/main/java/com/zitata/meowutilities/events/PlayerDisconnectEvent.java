@@ -11,9 +11,9 @@ import java.util.AbstractMap;
 public class PlayerDisconnectEvent {
     @SubscribeEvent
     public void onPlayerDisconnect(PlayerEvent.PlayerLoggedOutEvent event) {
-        if (MeowUtilities.playerList.containsKey(event.player.getDisplayName())) {
-            Data.savePlayerGhost(new AbstractMap.SimpleEntry<>(event.player.getDisplayName(), MeowUtilities.playerList.get(event.player.getDisplayName())));
-            MeowUtilities.playerList.remove(event.player.getDisplayName());
+        if (MeowUtilities.playerList.containsKey(event.player.getGameProfile().getId().toString())) {
+            Data.savePlayerGhost(new AbstractMap.SimpleEntry<>(event.player.getGameProfile().getId().toString(), MeowUtilities.playerList.get(event.player.getGameProfile().getId().toString())));
+            MeowUtilities.playerList.remove(event.player.getGameProfile().getId().toString());
         }
         MeowUtilities.tpaRequestList.remove(event.player);
         while (MeowUtilities.tpaRequestList.values().remove(event.player));

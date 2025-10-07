@@ -28,7 +28,7 @@ public class Cooldown {
      * set timestamp of end cooldown
      */
     public void setSpawn() {
-        spawn = System.currentTimeMillis() + MeowUtilities.config.getSpawnCooldown();
+        spawn = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getSpawnCooldown();
     }
 
     /**
@@ -49,7 +49,7 @@ public class Cooldown {
      * set timestamp of end cooldown
      */
     public void setTpPublic() {
-        tpPublic = System.currentTimeMillis() + MeowUtilities.config.getTpPublicCooldown();
+        tpPublic = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getTpPublicCooldown();
     }
 
     /**
@@ -112,27 +112,27 @@ public class Cooldown {
      * set timestamp of end cooldown
      */
     public void setTp() {
-        tp = System.currentTimeMillis() + MeowUtilities.config.getTpCooldown();
+        tp = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getTpCooldown();
     }
 
     /**
      * set timestamp of end cooldown
      */
     public void setTpa() {
-        tpa = System.currentTimeMillis() + MeowUtilities.config.getTpaCooldown();
+        tpa = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getTpaCooldown();
     }
 
     /**
      * set timestamp of end cooldown
      */
     public void setSuicide() {
-        suicide = System.currentTimeMillis() + MeowUtilities.config.getSuicideCooldown();
+        suicide = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getSuicideCooldown();
     }
 
     /**
      * set timestamp of end cooldown
      */
     public void setBack() {
-        back = System.currentTimeMillis() + MeowUtilities.config.getBackCooldown();
+        back = System.currentTimeMillis() + MeowUtilities.INSTANCE.config.getBackCooldown();
     }
 }

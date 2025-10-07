@@ -6,6 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.zitata.meowutilities.MeowUtilities;
 import com.zitata.meowutilities.entity.PlayerGhost;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,11 +16,11 @@ import java.util.Map;
 
 public class Data {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final File ROOT_DIR = new File("." + File.separator + MeowUtilities.modName);
+    private static final File ROOT_DIR = new File(FMLCommonHandler.instance().getMinecraftServerInstance().worldServerForDimension(0).getSaveHandler().getWorldDirectory(), MeowUtilities.MOD_NAME);
     private static final File PLAYERS_DIR = new File(ROOT_DIR, "players");
     public static final File CONFIG_FILE = new File(ROOT_DIR, "config.json");
 
-    public Data() {
+    public static void createDirs() {
         createDir(ROOT_DIR);
         createDir(PLAYERS_DIR);
         createFile(CONFIG_FILE);

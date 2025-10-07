@@ -19,13 +19,13 @@ public class CommandReloadConfig extends CommandBase {
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
+    public int getRequiredPermissionLevel() {
+        return 2;
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        MeowUtilities.config = Data.readConfig();
+        MeowUtilities.INSTANCE.config = Data.readConfig();
         MessageSender.sendMessage(sender, MessageSender.SUCCESSFUL, "Configuration is reloaded");
     }
 }
