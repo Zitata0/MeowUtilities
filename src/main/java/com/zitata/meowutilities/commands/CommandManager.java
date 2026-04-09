@@ -2,6 +2,7 @@ package com.zitata.meowutilities.commands;
 
 import com.zitata.meowutilities.commands.home.*;
 import com.zitata.meowutilities.commands.other.CommandReloadConfig;
+import com.zitata.meowutilities.commands.other.CommandRestart;
 import com.zitata.meowutilities.commands.other.CommandSpawn;
 import com.zitata.meowutilities.commands.other.CommandSuicide;
 import com.zitata.meowutilities.commands.tpa.CommandTpa;
@@ -20,6 +21,7 @@ public class CommandManager {
         event.registerServerCommand(new CommandTpa());
 
         event.registerServerCommand(new CommandReloadConfig());
+        event.registerServerCommand(new CommandRestart());
         event.registerServerCommand(new CommandSuicide());
 
         event.registerServerCommand(new CommandSpawn());

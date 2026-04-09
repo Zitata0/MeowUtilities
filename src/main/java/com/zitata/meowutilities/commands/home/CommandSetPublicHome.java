@@ -33,7 +33,7 @@ public class CommandSetPublicHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getId().toString()).teleportPoints.keySet());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getName()).teleportPoints.keySet());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class CommandSetPublicHome extends CommandBase {
             return;
         }
 
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
             MessageSender.sendMessage(player, MessageSender.ERROR, "You do not have teleport points");

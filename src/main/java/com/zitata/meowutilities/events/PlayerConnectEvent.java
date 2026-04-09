@@ -10,12 +10,12 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 public class PlayerConnectEvent {
     @SubscribeEvent
     public void onPlayerConnect(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!MeowUtilities.playerList.containsKey(event.player.getGameProfile().getId().toString())) {
-            PlayerGhost playerGhost = Data.getPlayerGhost(event.player.getGameProfile().getId().toString());
+        if (!MeowUtilities.playerList.containsKey(event.player.getGameProfile().getName())) {
+            PlayerGhost playerGhost = Data.getPlayerGhost(event.player.getGameProfile().getName());
             if (playerGhost == null) {
                 playerGhost = new PlayerGhost();
             }
-            MeowUtilities.playerList.put(event.player.getGameProfile().getId().toString(), playerGhost);
+            MeowUtilities.playerList.put(event.player.getGameProfile().getName(), playerGhost);
         }
     }
 }

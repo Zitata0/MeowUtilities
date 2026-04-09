@@ -57,7 +57,7 @@ public class TeleportDelay extends Point {
         if (playerSource == null) {
             throw new NullPointerException();
         }
-        if (MeowUtilities.playerList.get(playerSource.getGameProfile().getId().toString()).teleportPoints.containsValue(teleportPoint)) {
+        if (MeowUtilities.playerList.get(playerSource.getGameProfile().getName()).teleportPoints.containsValue(teleportPoint)) {
             targetType = Target.TELEPORT_POINT;
         } else {
             targetType = Target.TELEPORT_PUBLIC_POINT;

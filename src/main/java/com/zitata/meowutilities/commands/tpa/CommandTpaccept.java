@@ -30,7 +30,7 @@ public class CommandTpaccept extends CommandBase {
 
         if (MeowUtilities.tpaRequestList.containsKey(playerTarget)) {
             MeowUtilities.teleportDelayList.put(MeowUtilities.tpaRequestList.get(playerTarget), new TeleportDelay(MeowUtilities.tpaRequestList.get(playerTarget), playerTarget));
-            MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, String.format("%s will be teleported to you in %s seconds", MeowUtilities.tpaRequestList.get(playerTarget).getGameProfile().getId().toString(), MeowUtilities.INSTANCE.config.getTeleportDelay() / 1000));
+            MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, String.format("%s will be teleported to you in %s seconds", MeowUtilities.tpaRequestList.get(playerTarget).getGameProfile().getName(), MeowUtilities.INSTANCE.config.getTeleportDelay() / 1000));
             MeowUtilities.tpaRequestList.remove(playerTarget);
         } else {
             MessageSender.sendMessage(playerTarget, MessageSender.ERROR, "You do not have any teleport requests");

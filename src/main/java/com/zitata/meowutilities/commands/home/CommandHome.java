@@ -23,7 +23,7 @@ public class CommandHome extends CommandBase {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/home [null/title]";
+        return "/home [null/title] OR [player] [title]";
     }
 
     @Override
@@ -39,14 +39,17 @@ public class CommandHome extends CommandBase {
         EntityPlayerMP player = ((EntityPlayerMP)sender);
         List<String> targets = new ArrayList<>();
         if (args.length == 1) {
-            targets.addAll(MeowUtilities.playerList.get(player.getGameProfile().getId().toString()).teleportPoints.keySet());
+            targets.addAll(MeowUtilities.playerList.get(player.getGameProfile().getName()).teleportPoints.keySet());
             targets.addAll(Arrays.asList(player.mcServer.getAllUsernames()));
         } else {
             PlayerGhost playerGhostTarget;
             if (MeowUtilities.playerList.containsKey(args[0])) {
                 playerGhostTarget = MeowUtilities.playerList.get(args[0]);
-            } else if ((playerGhostTarget = Data.getPlayerGhost(args[0])) == null) {
-                throw new PlayerNotFoundException();
+            } else {
+                playerGhostTarget = Data.getPlayerGhost(args[0]);
+                if (playerGhostTarget == null) {
+                    return null;
+                }
             }
             targets.addAll(playerGhostTarget.getPublicTeleportPoints().keySet());
         }
@@ -62,7 +65,7 @@ public class CommandHome extends CommandBase {
                 break;
             }
             case 2: {
-                if (args[0].equals(player.getGameProfile().getId().toString())) {
+                if (args[0].equals(player.getGameProfile().getName())) {
                     privateTp(player, args[1]);
                 } else {
                     publicTp(player, args[0], args[1]);
@@ -77,7 +80,7 @@ public class CommandHome extends CommandBase {
 
     private void publicTp(EntityPlayerMP player, String playerTargetName, String teleportPointName) {
         PlayerGhost playerTargetGhost;
-        PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
+        PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(player.getGameProfile().getName());
 
         if (!playerSourceGhost.getCooldown().isTpPublic() && !player.canCommandSenderUseCommand(2, this.getCommandName())) {
             throw new CommandException("Tp to public point will recharge in %s seconds", ((playerSourceGhost.getCooldown().getTpPublic() - System.currentTimeMillis()) / 1000));
@@ -104,7 +107,7 @@ public class CommandHome extends CommandBase {
     }
 
     private void privateTp(EntityPlayerMP player, String teleportPointName) {
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getName());
 
         if (!playerGhost.getCooldown().isTp() && !player.canCommandSenderUseCommand(2, this.getCommandName())) {
             throw new CommandException(String.format("Tp to private point will recharge in %s seconds", ((playerGhost.getCooldown().getTp() - System.currentTimeMillis()) / 1000)));

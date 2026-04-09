@@ -35,19 +35,17 @@ public class CommandSetHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getId().toString()).teleportPoints.keySet());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getName()).teleportPoints.keySet());
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP) sender;
 
-        /*
         String dimName = player.mcServer.worldServerForDimension(player.dimension).provider.getDimensionName();
-        if (!(player.dimension == 0 || dimName.contains("PERSONAL") || dimName.contains("SPACESTATION"))) {
+        if (!(player.dimension == 0 || dimName.contains("Personal World") || dimName.contains("Space Station"))) {
             throw new CommandException("You do not have permission to create a home in this world");
         }
-        */
 
         String teleportPointName;
         if (args.length > 0) {
@@ -56,7 +54,7 @@ public class CommandSetHome extends CommandBase {
             teleportPointName = "home";
         }
 
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getName());
 
         if (playerGhost.teleportPoints.size() > MeowUtilities.INSTANCE.config.getTpCount()) {
             throw new CommandException("You have a lot of teleport points");

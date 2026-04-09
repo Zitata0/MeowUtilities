@@ -30,7 +30,7 @@ public class CommandSpawn extends CommandBase {
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP)sender;
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getName());
 
         if (!playerGhost.getCooldown().isSpawn() && !player.canCommandSenderUseCommand(2, this.getCommandName())) {
             MessageSender.sendMessage(player, MessageSender.ERROR, String.format("Spawn will recharge in %s seconds", ((playerGhost.getCooldown().getSpawn() - System.currentTimeMillis()) / 1000)));

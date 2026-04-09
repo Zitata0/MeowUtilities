@@ -44,7 +44,7 @@ public class CommandTpa extends CommandBase {
         }
 
         EntityPlayerMP playerSource = (EntityPlayerMP) sender;
-        PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(playerSource.getGameProfile().getId().toString());
+        PlayerGhost playerSourceGhost = MeowUtilities.playerList.get(playerSource.getGameProfile().getName());
 
         if (!playerSourceGhost.getCooldown().isTpa() && !playerSource.canCommandSenderUseCommand(2, this.getCommandName())) {
             MessageSender.sendMessage(playerSource, MessageSender.ERROR, String.format("Tpa will recharge in %s seconds", ((playerSourceGhost.getCooldown().getTpa() - System.currentTimeMillis()) / 1000)));
@@ -54,7 +54,7 @@ public class CommandTpa extends CommandBase {
         EntityPlayerMP playerTarget = null;
 
         for (EntityPlayerMP player : playerSource.mcServer.getConfigurationManager().playerEntityList) {
-            if (player.getGameProfile().getId().toString().equals(args[0])) {
+            if (player.getGameProfile().getName().equals(args[0])) {
                 playerTarget = player;
                 break;
             }
@@ -65,8 +65,8 @@ public class CommandTpa extends CommandBase {
         }
 
         MeowUtilities.tpaRequestList.put(playerTarget, playerSource);
-        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, String.format("Request has been sent to %s", playerTarget.getGameProfile().getId().toString()));
-        MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, String.format("%s wants to teleport to you", playerSource.getGameProfile().getId().toString()));
+        MessageSender.sendMessage(playerSource, MessageSender.PASSIVE, String.format("Request has been sent to %s", playerTarget.getGameProfile().getName()));
+        MessageSender.sendMessage(playerTarget, MessageSender.PASSIVE, String.format("%s wants to teleport to you", playerSource.getGameProfile().getName()));
         MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, "Use '/tpaccept' to accept teleport");
     }
 }

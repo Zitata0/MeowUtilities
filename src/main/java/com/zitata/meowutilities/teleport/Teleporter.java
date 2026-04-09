@@ -15,7 +15,7 @@ public class Teleporter {
         EntityPlayerMP playerSource = teleportDelay.playerSource;
         EntityPlayerMP playerTarget = teleportDelay.getPlayerTarget();
 
-        Cooldown cooldown = MeowUtilities.playerList.get(playerSource.getGameProfile().getId().toString()).getCooldown();
+        Cooldown cooldown = MeowUtilities.playerList.get(playerSource.getGameProfile().getName()).getCooldown();
 
         MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         WorldServer sourceDim = server.worldServerForDimension(playerSource.dimension);
@@ -55,8 +55,8 @@ public class Teleporter {
             }
             case PLAYER: {
                 cooldown.setTpa();
-                MessageSender.sendMessage(playerSource, MessageSender.SUCCESSFUL, "You have been teleported to " + playerTarget.getGameProfile().getId().toString());
-                MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, playerSource.getGameProfile().getId().toString() + " was teleported to you");
+                MessageSender.sendMessage(playerSource, MessageSender.SUCCESSFUL, "You have been teleported to " + playerTarget.getGameProfile().getName());
+                MessageSender.sendMessage(playerTarget, MessageSender.SUCCESSFUL, playerSource.getGameProfile().getName() + " was teleported to you");
                 while (MeowUtilities.tpaRequestList.values().remove(playerSource));
                 break;
             }

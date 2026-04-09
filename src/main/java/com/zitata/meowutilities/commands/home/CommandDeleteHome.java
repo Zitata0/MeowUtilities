@@ -33,13 +33,13 @@ public class CommandDeleteHome extends CommandBase {
         if (args.length > 1) {
             return null;
         }
-        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getId().toString()).teleportPoints.keySet());
+        return getListOfStringsFromIterableMatchingLastWord(args, MeowUtilities.playerList.get(((EntityPlayerMP)sender).getGameProfile().getName()).teleportPoints.keySet());
     }
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
         EntityPlayerMP player = (EntityPlayerMP) sender;
-        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getId().toString());
+        PlayerGhost playerGhost = MeowUtilities.playerList.get(player.getGameProfile().getName());
 
         if (playerGhost.teleportPoints.isEmpty()) {
             throw new CommandException("You do not have teleport points");
